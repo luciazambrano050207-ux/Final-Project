@@ -1,22 +1,23 @@
 import pyxel
 class Package:
     """ This class represents a package. """
-    def __init__(self, y, D):
+    def __init__(self, belt, start_x):
         """ This method creates a Package object by receiving all the
         information needed. Every package will have the same values for the
         attributes when we create them."""
-        self.x = 256
-        self.y = y
+        self.belt= belt
+        self.x = start_x
+        self.y = belt.y
         self.img = 0
         self.u = 16
         self.v = 160
         self.width = 8
         self.height = 4
-        self.D = D
-        self.direction = "left"
-        self.side = "right"
-        self.at_truck = False
-        self.visible = True
+        #self.D = D
+        #self.direction = "left"
+        #self.side = "right"
+        #self.at_truck = False
+        #self.visible = True
 
     @property
     def x(self) -> int:
@@ -38,9 +39,9 @@ class Package:
     @y.setter
     def y(self, y: int):
         if not isinstance(y, int):
-            raise TypeError("The y must be an int")
+           raise TypeError("The y must be an int")
         elif y < 0:
-            raise ValueError("The y must be >= 0")
+         raise ValueError("The y must be >= 0")
         else:
             self.__y = y
 
@@ -87,46 +88,51 @@ class Package:
         else:
             self.__direction = direction.lower()
 
-    @property
-    def side(self) -> str:
-        return self.__side
+   # @property
+   # def side(self) -> str:
+  #      return self.__side
 
-    @side.setter
-    def side(self, side: str):
-        if not isinstance(side, str):
-            raise TypeError("The side must be a string")
-        if not side.lower() == "left" and not side.lower() == "right":
-            raise ValueError("The side must be left or right")
-        else:
-            self.__side = side.lower()
+   # @side.setter
+   # def side(self, side: str):
+      #  if not isinstance(side, str):
+        #    raise TypeError("The side must be a string")
+       # if not side.lower() == "left" and not side.lower() == "right":
+          #  raise ValueError("The side must be left or right")
+       # else:
+         #   self.__side = side.lower()
 
-    @property
-    def at_truck(self) -> bool:
-        return self.__at_truck
+   # @property
+   # def at_truck(self) -> bool:
+        #return self.__at_truck
 
-    @at_truck.setter
-    def at_truck(self, at_truck: bool):
-        if not isinstance(at_truck, bool):
-            raise TypeError("The at_truck must be a boolean")
-        else:
-            self.__at_truck = at_truck
+   # @at_truck.setter
+   # def at_truck(self, at_truck: bool):
+        #if not isinstance(at_truck, bool):
+          #  raise TypeError("The at_truck must be a boolean")
+       # else:
+          #  self.__at_truck = at_truck
 
-    @property
-    def visible(self) -> bool:
-        return self.__visible
+    #@property
+  #  def visible(self) -> bool:
+        #return self.__visible
 
-    @visible.setter
-    def visible(self, visible: bool):
-        if not isinstance(visible, bool):
+    #@visible.setter
+    #def visible(self, visible: bool):
+      #  if not isinstance(visible, bool):
             raise TypeError("visible must be a boolean")
-        else:
+        #else:
             self.__visible = visible
 
+    #def update(self):
+       # self.x -=self.D
+        #if self.x < -self.width:
+           # self.x = 256
+  #  def draw(self):
+       # pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width,
+# self.height)
     def update(self):
-        self.x -=self.D
-        if self.x < -self.width:
-            self.x = 256
-    def draw(self):
-        pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width, self.height)
-
+        if self.belt.direction == "left":
+            self.x -= self.belt.speed
+        else:
+            self.x += self.belt.speed
 

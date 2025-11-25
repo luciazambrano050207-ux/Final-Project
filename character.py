@@ -3,7 +3,7 @@ class Character:
     """This class represents the player of the game: Mario and Luigi"""
 
     def __init__(self, x, y, img, u, v, width, height, D , max_floors, up,
-                 down):
+                 down, floors_y):
         """ This method creates the Character object
         :param x : the initial x of the character
         :param y : the initial y of the character
@@ -27,6 +27,7 @@ class Character:
         self.max_floors = max_floors
         self.up = up
         self.down = down
+        self.floors_y = floors_y
 
     @property
     def x(self):

@@ -1,15 +1,18 @@
 class Belt:
     """ This class represents the belt """
-    def __init__(self, direction: str, level:int, speed:float, start_x:int,
-                 end_x:int, y_ground: int = 200, y_step: int = -60):
+    def __init__(self, y, direction, speed):
+        #(self, direction: str, level:int, speed:float, start_x:int,
+        #end_x:int, y_ground: int = 200, y_step: int = -60):
+
         self.direction = direction
-        self.level = level
+        #self.level = level
         self.speed = speed
-        self.start_x = start_x
-        self.end_x = end_x
-        self.y_ground = y_ground
-        self.y_step = y_step
-        self.y = self.y_ground + (level - 1) * self.y_step
+
+        self.y = y
+        #self.end_x = end_x
+        #self.y_ground = y_ground
+        #self.y_step = y_step
+        #self.y = self.y_ground + (level - 1) * self.y_step
 
 
     @property
