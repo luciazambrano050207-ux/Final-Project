@@ -18,43 +18,53 @@ class Belt:
     @property
     def direction(self):
         return self.__direction
+
     @direction.setter
     def direction(self, direction):
         if not isinstance(direction, str):
             raise TypeError('direction must be a string')
         self.__direction = direction
+
     @property
     def level(self):
         return self.__level
+
     @level.setter
     def level(self, level):
         if not isinstance(level, int):
             raise TypeError('level must be a integer')
         self.__level = level
+
     @property
     def speed(self):
         return self.__speed
+
     @speed.setter
     def speed(self, speed):
         if not isinstance(speed, int):
             raise TypeError('speed must be a integer')
         self.__speed = speed
+
     @property
     def start_x(self):
         return self.__start_x
+
     @start_x.setter
     def start_x(self, start_x):
         if not isinstance(start_x, int):
             raise TypeError('start_x must be a integer')
         self.__start_x = start_x
+
     @property
     def end_x(self):
         return self.__end_x
+
     @end_x.setter
     def end_x(self, end_x):
         if not isinstance(end_x, int):
             raise TypeError('end_x must be a integer')
         self.__end_x = end_x
+
     @property
     def y_ground(self):
         return self.__y_ground

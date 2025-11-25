@@ -3,7 +3,7 @@ class Character:
     """This class represents the player of the game: Mario and Luigi"""
 
     def __init__(self, x, y, img, u, v, width, height, D , max_floors, up,
-                 down, floors_y):
+                 down):
         """ This method creates the Character object
         :param x : the initial x of the character
         :param y : the initial y of the character
@@ -80,17 +80,21 @@ class Character:
         if not isinstance(v, int):
             raise TypeError("v must be a int")
         self.__v = v
+
     @property
     def up(self):
         return self.__up
+
     @up.setter
     def up(self, up):
         if not isinstance(up, int):
             raise TypeError("up must be a int")
         self.__up = up
+
     @property
     def down(self):
         return self.__down
+
     @down.setter
     def down(self, down):
         if not isinstance(down, int):
@@ -115,4 +119,3 @@ class Character:
 
     def draw(self):
         pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width, self.height)
-
