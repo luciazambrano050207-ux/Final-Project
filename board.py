@@ -32,7 +32,7 @@ class Board:
         self.package= (start_belt, start_x)
         pyxel.init(self.width, self.height, title="Mario")
 
-        pyxel.load("assets/my_resource.pyxres")
+        pyxel.load("my_resource.pyxres")
 
         pyxel.run(self.update, self.draw)
 
