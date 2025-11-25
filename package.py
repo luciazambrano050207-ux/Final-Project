@@ -135,5 +135,5 @@ class Package:
             self.x -= self.belt.speed
         else:
             self.x += self.belt.speed
-    lucia
+
 
