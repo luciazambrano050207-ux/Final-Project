@@ -14,6 +14,8 @@ class Character:
         :param height : the height of the character
         :param D : the distance that the character can move
         :param max_floors : the maximum number of floors that the character can move
+        :param up : the key to move the character up
+        :param down : the key to move the character down
         """
         self.x = x
         self.y = y
@@ -94,19 +96,23 @@ class Character:
         if not isinstance(down, int):
             raise TypeError("down must be a int")
         self.__down = down
+
     def move_up(self):
         if self.floor < self.max_floors:
             self.y -= self.D
             self.floor += 1
+
     def move_down(self):
         if self.floor > 0:
             self.y += self.D
             self.floor -= 1
+
     def update(self):
         if pyxel.btnp(self.up):
             self.move_up()
         if pyxel.btnp(self.down):
             self.move_down()
+
     def draw(self):
         pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width, self.height)
 
