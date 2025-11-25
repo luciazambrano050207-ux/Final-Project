@@ -20,7 +20,16 @@ class Board:
         self.luigi = Character(x=66, y=80, img=0, u=16, v=0, width=16,
                                height=16, D=32, max_floors=2, up=pyxel.KEY_W,
                                down=pyxel.KEY_S)
-        self.package = Package(y=88, D= 1)
+        self.floors_y = [120, 96, 72, 48, 24]
+        self.belts = [Belt(120, "left", 1), Belt(96, "right", 1),Belt(72,
+            "left", 1), Belt(48, "right", 1),
+                      Belt(24, "left", 1)]
+        start_belt = self.belts[0]
+        if self.belts[0].direction == "left":
+            start_x = 240
+        else:
+            start_x = 20
+        self.package= (start_belt, start_x)
         pyxel.init(self.width, self.height, title="Mario")
 
         pyxel.load("assets/my_resource.pyxres")
@@ -53,6 +62,7 @@ class Board:
         else:
             self.__height = height
 
+
     def update(self):
         """ This is a pyxel method that gets executed in every iteration of the game (every
         frame). You need to put here all the code that has to be executed in every frame. Now
@@ -62,7 +72,14 @@ class Board:
             pyxel.quit()
         self.mario.update()
         self.luigi.update()
+        if self.package is None:
+            return
         self.package.update()
+
+        if self.package.belt.direction == "left" and self.package.x <= 20:
+            self
+
+
 
     def draw(self):
         """This is a pyxel method that gets executed in every iteration of the game (every
@@ -75,6 +92,7 @@ class Board:
 
         self.mario.draw()
         self.luigi.draw()
-        self.package.draw()
+        #self.package.draw()
+
         pyxel.text(40,50, "Medium", 15) #Text en pantalla sin necesidad de
     # hacer las letras0
