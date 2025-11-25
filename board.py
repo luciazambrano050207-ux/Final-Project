@@ -77,8 +77,6 @@ class Board:
         self.package.update()
 
 
-
-
     def draw(self):
         """This is a pyxel method that gets executed in every iteration of the game (every
         frame). You need to put here all the code to draw the sprites of the game.
@@ -87,10 +85,9 @@ class Board:
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
         # Drawing the character, parameters of pyxel.blt are (x, y, sprite tuple)
-
         self.mario.draw()
         self.luigi.draw()
         #self.package.draw()
 
-        pyxel.text(40,50, "Medium", 15) #Text en pantalla sin necesidad de
-    # hacer las letras0
+        # Text in screen without having to do the letters
+        pyxel.text(40,50, "Medium", 15)
