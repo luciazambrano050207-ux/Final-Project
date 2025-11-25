@@ -74,7 +74,7 @@ class Board:
         self.luigi.update()
         if self.package is None:
             return
-        self.package.update()
+        #self.package.update()
 
 
     def draw(self):
