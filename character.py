@@ -29,7 +29,7 @@ class Character:
         self.max_floors = max_floors
         self.up = up
         self.down = down
-        self.floors_y = floors_y
+
 
     @property
     def x(self):

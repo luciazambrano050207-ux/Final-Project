@@ -76,8 +76,6 @@ class Board:
             return
         self.package.update()
 
-        if self.package.belt.direction == "left" and self.package.x <= 20:
-            self
 
 
 
