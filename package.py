@@ -164,12 +164,17 @@ class Package:
         self.x = new_x
         self.y = new_y
         self.direction = self.belts[self.belt].direction
-        self.on_belt= True
+        self.on_belt = True
 
     def fall(self):
+        """ This method changes some attributes of the package when it
+        falls. """
         self.on_belt = False
         self.finish = True
+
     def end_belt(self):
+        """ This method returns True if the package is at the end of the
+        belt and False otherwise. """
         if self.belt < 0:
             return False
         if self.direction == "left":
@@ -194,4 +199,3 @@ class Package:
                 pyxel.blt(self.x, self.y, 0, 48, 72, 16, 8)
             else:
                 pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
-
