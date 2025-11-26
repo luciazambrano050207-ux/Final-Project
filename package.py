@@ -1,3 +1,4 @@
+import time
 import pyxel
 class Package:
     """ This class represents a package. """
@@ -5,17 +6,21 @@ class Package:
         """ This method creates a Package object by receiving all the
         information needed. Every package will have the same values for the
         attributes when we create them."""
-        self.belt= belt
-        self.x = start_x
-        self.y = belt.y
-        self.img = 0
-        self.u = 16
-        self.v = 160
+        self.belts = belts
+        self.belt = 0
+        self.x = 224
+        self.y = 82
+        # self.img = 0
+        # self.u = 32
+        # self.v = 64
         self.width = 8
-        self.height = 4
-        #self.D = D
-        #self.direction = "left"
-        #self.side = "right"
+        self.height = 16
+        self.D = 8
+        self.direction = "left"
+        self.time = time.time()
+        self.side = "right"
+        self.on_belt = False
+        self.finish = False
         #self.at_truck = False
         #self.visible = True
 
@@ -131,9 +136,47 @@ class Package:
        # pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width,
 # self.height)
     def update(self):
-        if self.belt.direction == "left":
-            self.x -= self.belt.speed
-        else:
-            self.x += self.belt.speed
+        if time.time() - self.time > 1:
+            self.move()
+            self.time = time.time()
+    def put_belt(self, belt):
+        self.y = self.belts[belt].y
+        self.direction = self.belts[belt].direction
+        self.on_belt = True
 
+    def advance_belt(self):
+        if self.belt + 1 < len(self.belts):
+            self.belt += 1
+            self.y = self.belts[self.belt].y
+            self.direction = self.belts[self.belt].direction
+            self.on_belt= True
+        else:
+            self.finish = True
+    def fall(self):
+        self.on_belt = False
+        self.finish = True
+    def end_belt(self):
+        if self.direction == "left" and self.x <= self.belts[self.belt].end_x:
+            return True
+        if self.direction == "right" and self.x >= self.belts[self.belt].end_x:
+
+            return True
+        else:
+            return False
+
+    def draw(self):
+        if self.side == "right":
+            if self.belt == 0:
+                pyxel.blt(self.x, self.y, 0, 32,64,16,8)
+            elif self.belt == 1 or self.belt == 2:
+                pyxel.blt(self.x, self.y, 0,32, 72,16,8)
+            else:
+                pyxel.blt(self.x, self.y, 0 , 32, 80, 16, 8)
+        else:
+            if self.belt == 0 or self.belt == 1:
+                pyxel.blt(self.x, self.y, 0, 48,64, 16, 8)
+            elif self.belt == 2 or self.belt == 3:
+                pyxel.blt(self.x, self.y, 0, 48, 72, 16, 8)
+            else:
+                pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
 

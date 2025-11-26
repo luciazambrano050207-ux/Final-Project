@@ -14,22 +14,24 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=184, y=88, img=0, u=32, v=0, width=16,
-                               height=16, D=32, max_floors=2,
-                               up = pyxel.KEY_UP, down = pyxel.KEY_DOWN)
-        self.luigi = Character(x=66, y=80, img=0, u=16, v=0, width=16,
-                               height=16, D=32, max_floors=2, up=pyxel.KEY_W,
-                               down=pyxel.KEY_S)
-        self.floors_y = [120, 96, 72, 48, 24]
-        self.belts = [Belt(120, "left", 1), Belt(96, "right", 1),Belt(72,
-            "left", 1), Belt(48, "right", 1),
-                      Belt(24, "left", 1)]
+        self.mario = Character(x=184, y=88, D=32, max_floors=2,
+                               up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
+                               side= "right")
+        self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
+                               down=pyxel.KEY_S, side="left")
+
+        #self.belts_y = [88, 72, 56, 40, 24]
+        self.belts = [Belt(88, "left", 2),
+                      Belt(72, "right", 2),
+                      Belt(56,"left", 2),
+                      Belt(40, "right", 2),
+                      Belt(24, "left", 2)]
         start_belt = self.belts[0]
-        if self.belts[0].direction == "left":
-            start_x = 240
-        else:
-            start_x = 20
-        self.package= (start_belt, start_x)
+        self.package = Package(self.belts)
+        self.mario_catch_x = 160
+        self.luigi_catch_x = 120
+
+
         pyxel.init(self.width, self.height, title="Mario")
 
         pyxel.load("my_resource.pyxres")
@@ -70,6 +72,7 @@ class Board:
         # To exit the game
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
+
         self.mario.update()
         self.luigi.update()
         if self.package is None:
@@ -90,4 +93,16 @@ class Board:
         #self.package.draw()
 
         # Text in screen without having to do the letters
-        pyxel.text(40,50, "Medium", 15)
+        pyxel.text(40,5, "Easy", 15)
+
+
+   # def collide(self):
+        #if self.package.x == 160:
+           # if (self.mario.floor == 2 * self.package.belt and
+              #  self.mario.floor != 0 and self.package.belt != 0):
+               # self.package.belt += 1
+       # if self.package.x == 88:
+           # if ((self.luigi.floor == 0 and self.package.belt == 0) or
+               # (self.luigi.floor == 2 * self.package.belt + 1)):
+               # self.package.belt += 1
+
