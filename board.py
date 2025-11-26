@@ -14,25 +14,27 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=184, y=88, img=0, u=32, v=0, width=16,
-                               height=16, D=32, max_floors=2,
-                               up = pyxel.KEY_UP, down = pyxel.KEY_DOWN)
-        self.luigi = Character(x=66, y=80, img=0, u=16, v=0, width=16,
-                               height=16, D=32, max_floors=2, up=pyxel.KEY_W,
-                               down=pyxel.KEY_S)
-        self.floors_y = [120, 96, 72, 48, 24]
-        self.belts = [Belt(120, "left", 1), Belt(96, "right", 1),Belt(72,
-            "left", 1), Belt(48, "right", 1),
-                      Belt(24, "left", 1)]
+        self.mario = Character(x=184, y=88, D=32, max_floors=2,
+                               up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
+                               side= "right")
+        self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
+                               down=pyxel.KEY_S, side="left")
+
+        #self.belts_y = [88, 72, 56, 40, 24]
+        self.belts = [Belt(88, "left", 2),
+                      Belt(72, "right", 2),
+                      Belt(56,"left", 2),
+                      Belt(40, "right", 2),
+                      Belt(24, "left", 2)]
         start_belt = self.belts[0]
-        if self.belts[0].direction == "left":
-            start_x = 240
-        else:
-            start_x = 20
-        self.package= (start_belt, start_x)
+        self.package = Package(self.belts)
+        self.mario_catch_x = 160
+        self.luigi_catch_x = 120
+
+
         pyxel.init(self.width, self.height, title="Mario")
 
-        pyxel.load("assets/my_resource.pyxres")
+        pyxel.load("my_resource.pyxres")
 
         pyxel.run(self.update, self.draw)
 
@@ -70,11 +72,61 @@ class Board:
         # To exit the game
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
+
         self.mario.update()
         self.luigi.update()
-        if self.package is None:
-            return
         self.package.update()
+        self.collisions()
+    def collisions(self):
+        pkg = self.package
+
+        if pkg.belt == -1:
+            if self.collide(pkg, self.mario):
+                self.package.put_belt(0)
+                self.package.on_belt = True
+            elif pkg.x <= 70:
+                pkg.fall()
+        elif pkg.belt == 0 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 1 and pkg.end_belt():
+            if self.collide(pkg, self.mario):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 2 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+        elif pkg.belt == 3 and pkg.end_belt():
+            if self.collide(pkg, self.mario):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 4 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.finish = True
+            else:
+                pkg.fall()
+
+    def collide(self, a, b):
+        return (a.x < b.x + b.width and
+                a.x + a.width > b.x and
+                a.y < b.y + b.height and
+                a.y + a.height > b.y)
+
+    # self.collisions()
+        #self.collide()
+
+
+
+
 
 
     def draw(self):
@@ -87,7 +139,21 @@ class Board:
         # Drawing the character, parameters of pyxel.blt are (x, y, sprite tuple)
         self.mario.draw()
         self.luigi.draw()
-        #self.package.draw()
+        self.package.draw()
+
+        pyxel.bltm(120,0,0,120, 0,16,128)
 
         # Text in screen without having to do the letters
-        pyxel.text(40,50, "Medium", 15)
+        pyxel.text(40,5, "Easy", 15)
+
+
+   # def collide(self):
+        #if self.package.x == 160:
+           # if (self.mario.floor == 2 * self.package.belt and
+              #  self.mario.floor != 0 and self.package.belt != 0):
+               # self.package.belt += 1
+       # if self.package.x == 88:
+           # if ((self.luigi.floor == 0 and self.package.belt == 0) or
+               # (self.luigi.floor == 2 * self.package.belt + 1)):
+               # self.package.belt += 1
+

@@ -2,8 +2,8 @@ import pyxel
 class Character:
     """This class represents the player of the game: Mario and Luigi"""
 
-    def __init__(self, x, y, img, u, v, width, height, D , max_floors, up,
-                 down):
+    def __init__(self, x, y, D , max_floors, up,
+                 down, side):
         """ This method creates the Character object
         :param x : the initial x of the character
         :param y : the initial y of the character
@@ -16,19 +16,21 @@ class Character:
         :param max_floors : the maximum number of floors that the character can move
         :param up : the key to move the character up
         :param down : the key to move the character down
+        :param side : the side of the character
         """
         self.x = x
         self.y = y
-        self.img = img
-        self.u = u
-        self.v = v
-        self.width = width
-        self.height = height
+        # #self.img = img
+        # self.u = u
+        # self.v = v
+        self.width = 16
+        self.height = 16
         self.D = D
         self.floor = 0
         self.max_floors = max_floors
         self.up = up
         self.down = down
+        self.side = side
 
 
     @property
@@ -101,6 +103,18 @@ class Character:
             raise TypeError("down must be a int")
         self.__down = down
 
+    @property
+    def side(self):
+        return self.__side
+
+    @side.setter
+    def side(self, side: str):
+        if not isinstance(side, str):
+            raise TypeError("side must be a str")
+        if not side.lower() == "left" and not side.lower() == "right":
+            raise ValueError("The side must be left or right")
+        self.__side = side
+
     def move_up(self):
         if self.floor < self.max_floors:
             self.y -= self.D
@@ -118,4 +132,10 @@ class Character:
             self.move_down()
 
     def draw(self):
-        pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width, self.height)
+        if self.side == "right":
+            if self.floor == 0:
+                pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
+            else:
+                pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
+        else:
+            pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)

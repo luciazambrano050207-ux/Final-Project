@@ -9,6 +9,14 @@ class Belt:
         self.speed = speed
 
         self.y = y
+        if direction == 'left':
+            self.start_x = 224
+        else:
+            self.start_x = 70
+        if direction == 'left':
+            self.end_x = 70
+        else:
+            self.end_x = 224
         #self.end_x = end_x
         #self.y_ground = y_ground
         #self.y_step = y_step
