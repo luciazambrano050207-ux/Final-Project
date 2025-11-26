@@ -26,10 +26,9 @@ class Board:
                       Belt(56,"left", 2),
                       Belt(40, "right", 2),
                       Belt(24, "left", 2)]
-        start_belt = self.belts[0]
         self.package = Package(self.belts)
-        self.mario_catch_x = 160
-        self.luigi_catch_x = 120
+        #self.mario_catch_x = 160
+        #self.luigi_catch_x = 120
 
 
         pyxel.init(self.width, self.height, title="Mario")
@@ -80,36 +79,43 @@ class Board:
     def collisions(self):
         pkg = self.package
 
-        if pkg.belt == -1:
-            if self.collide(pkg, self.mario):
-                self.package.put_belt(0)
-                self.package.on_belt = True
-            elif pkg.x <= 70:
-                pkg.fall()
-        elif pkg.belt == 0 and pkg.end_belt():
+        if pkg.belt == -1 and self.collide(pkg, self.mario):
+            pkg.put_belt(0, 160, 88)
+
+        elif pkg.belt == 0 and pkg.x<= 88:
             if self.collide(pkg, self.luigi):
-                pkg.advance_belt()
+                pkg.advance_belt(1, 88,64)
             else:
                 pkg.fall()
 
-        elif pkg.belt == 1 and pkg.end_belt():
+
+        elif pkg.belt == 1 and pkg.x >= 160:
+
             if self.collide(pkg, self.mario):
-                pkg.advance_belt()
+                pkg.advance_belt(2, 160, 48)
+
             else:
+
                 pkg.fall()
 
-        elif pkg.belt == 2 and pkg.end_belt():
+        elif pkg.belt == 2 and pkg.x <= 88:
+
             if self.collide(pkg, self.luigi):
-                pkg.advance_belt()
+
+                pkg.advance_belt(3, 88, 32)
             else:
-                pkg.fall()
-        elif pkg.belt == 3 and pkg.end_belt():
-            if self.collide(pkg, self.mario):
-                pkg.advance_belt()
-            else:
+
                 pkg.fall()
 
-        elif pkg.belt == 4 and pkg.end_belt():
+        elif pkg.belt == 3 and pkg.x >= 160:
+
+            if self.collide(pkg, self.mario):
+
+                pkg.advance_belt(4, 160, 16)
+
+            else:
+                pkg.fall()
+        elif pkg.belt == 4 and pkg.x <= 88:
             if self.collide(pkg, self.luigi):
                 pkg.finish = True
             else:

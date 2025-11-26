@@ -149,30 +149,32 @@ class Package:
         if time.time() - self.time > 1:
             self.move()
             self.time = time.time()
-    def put_belt(self, belt):
-        self.y = self.belts[belt].y
+    def put_belt(self, belt, new_x, new_y):
+        self.belt = belt
+        self.y = new_y
+        self.x = new_x
         self.direction = self.belts[belt].direction
         self.on_belt = True
 
-    def advance_belt(self):
-        if self.belt + 1 < len(self.belts):
-            self.belt += 1
-            self.y = self.belts[self.belt].y
-            self.direction = self.belts[self.belt].direction
-            self.on_belt= True
-        else:
-            self.finish = True
+    def advance_belt(self, belt, new_x, new_y):
+        self.belt = belt
+        self.x = new_x
+        self.y = new_y
+        self.direction = self.belts[self.belt].direction
+        self.on_belt= True
+
     def fall(self):
         self.on_belt = False
         self.finish = True
     def end_belt(self):
-        if self.direction == "left" and self.x <= self.belts[self.belt].end_x:
-            return True
-        if self.direction == "right" and self.x >= self.belts[self.belt].end_x:
-
-            return True
-        else:
+        if self.belt < 0:
             return False
+        if self.direction == "left":
+            return self.x <= self.belts[self.belt].end_x
+        else:
+            return self.x >= self.belts[self.belt].end_x
+
+
 
     def draw(self):
         if self.side == "right":

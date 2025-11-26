@@ -7,16 +7,11 @@ class Belt:
         self.direction = direction
         #self.level = level
         self.speed = speed
-
+        #self.start_x= 0
+        #self.end_x = 0
+        self.position()
         self.y = y
-        if direction == 'left':
-            self.start_x = 224
-        else:
-            self.start_x = 70
-        if direction == 'left':
-            self.end_x = 70
-        else:
-            self.end_x = 224
+
         #self.end_x = end_x
         #self.y_ground = y_ground
         #self.y_step = y_step
@@ -97,3 +92,11 @@ class Belt:
         if not isinstance(y, int):
             raise TypeError('y must be a integer')
         self.__y = y
+    def position(self):
+        if self.direction == 'left':
+            self.start_x = 224
+            self.end_x = 70
+        else:
+            self.start_x = 70
+            self.end_x = 224
+
