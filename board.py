@@ -75,9 +75,58 @@ class Board:
 
         self.mario.update()
         self.luigi.update()
-        if self.package is None:
-            return
-        #self.package.update()
+        self.package.update()
+        self.collisions()
+    def collisions(self):
+        pkg = self.package
+
+        if pkg.belt == -1:
+            if self.collide(pkg, self.mario):
+                self.package.put_belt(0)
+                self.package.on_belt = True
+            elif pkg.x <= 70:
+                pkg.fall()
+        elif pkg.belt == 0 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 1 and pkg.end_belt():
+            if self.collide(pkg, self.mario):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 2 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+        elif pkg.belt == 3 and pkg.end_belt():
+            if self.collide(pkg, self.mario):
+                pkg.advance_belt()
+            else:
+                pkg.fall()
+
+        elif pkg.belt == 4 and pkg.end_belt():
+            if self.collide(pkg, self.luigi):
+                pkg.finish = True
+            else:
+                pkg.fall()
+
+    def collide(self, a, b):
+        return (a.x < b.x + b.width and
+                a.x + a.width > b.x and
+                a.y < b.y + b.height and
+                a.y + a.height > b.y)
+
+    # self.collisions()
+        #self.collide()
+
+
+
+
 
 
     def draw(self):
@@ -90,7 +139,9 @@ class Board:
         # Drawing the character, parameters of pyxel.blt are (x, y, sprite tuple)
         self.mario.draw()
         self.luigi.draw()
-        #self.package.draw()
+        self.package.draw()
+
+        pyxel.bltm(120,0,0,120, 0,16,128)
 
         # Text in screen without having to do the letters
         pyxel.text(40,5, "Easy", 15)

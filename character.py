@@ -2,8 +2,8 @@ import pyxel
 class Character:
     """This class represents the player of the game: Mario and Luigi"""
 
-    def __init__(self, x, y, img, u, v, width, height, D , max_floors, up,
-                 down):
+    def __init__(self, x, y, D , max_floors, up,
+                 down, side):
         """ This method creates the Character object
         :param x : the initial x of the character
         :param y : the initial y of the character
@@ -16,6 +16,7 @@ class Character:
         :param max_floors : the maximum number of floors that the character can move
         :param up : the key to move the character up
         :param down : the key to move the character down
+        :param side : the side of the character
         """
         self.x = x
         self.y = y

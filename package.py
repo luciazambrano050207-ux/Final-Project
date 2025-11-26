@@ -2,7 +2,7 @@ import time
 import pyxel
 class Package:
     """ This class represents a package. """
-    def __init__(self, belt, start_x):
+    def __init__(self, belts):
         """ This method creates a Package object by receiving all the
         information needed. Every package will have the same values for the
         attributes when we create them."""
@@ -93,18 +93,21 @@ class Package:
         else:
             self.__direction = direction.lower()
 
-   # @property
-   # def side(self) -> str:
-  #      return self.__side
+    @property
+    def side(self) -> str:
+        return self.__side
 
-   # @side.setter
-   # def side(self, side: str):
-      #  if not isinstance(side, str):
-        #    raise TypeError("The side must be a string")
-       # if not side.lower() == "left" and not side.lower() == "right":
-          #  raise ValueError("The side must be left or right")
-       # else:
-         #   self.__side = side.lower()
+    @side.setter
+    def side(self, side: str):
+        if not isinstance(side, str):
+            raise TypeError("The side must be a string")
+        if not side.lower() == "left" and not side.lower() == "right":
+            raise ValueError("The side must be left or right")
+        else:
+            self.__side = side.lower()
+
+
+
 
    # @property
    # def at_truck(self) -> bool:
@@ -124,9 +127,9 @@ class Package:
     #@visible.setter
     #def visible(self, visible: bool):
       #  if not isinstance(visible, bool):
-            raise TypeError("visible must be a boolean")
+            # raise TypeError("visible must be a boolean")
         #else:
-            self.__visible = visible
+            # self.__visible = visible
 
     #def update(self):
        # self.x -=self.D
@@ -135,6 +138,13 @@ class Package:
   #  def draw(self):
        # pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width,
 # self.height)
+
+    def move(self):
+        if self.direction == "left":
+            self.x -= self.D
+        else:
+            self.x += self.D
+
     def update(self):
         if time.time() - self.time > 1:
             self.move()
