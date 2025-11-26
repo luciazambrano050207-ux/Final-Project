@@ -14,7 +14,7 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=184, y=88, D=32, max_floors=2,
+        self.mario = Character(x=176, y=88, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
                                side= "right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
