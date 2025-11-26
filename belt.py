@@ -94,6 +94,8 @@ class Belt:
         self.__y = y
 
     def position(self):
+        """ This method initializes the start_x and end_x attributes
+        according to the direction of the belt. """
         if self.direction == 'left':
             self.start_x = 224
             self.end_x = 70

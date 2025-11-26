@@ -80,42 +80,33 @@ class Board:
     def collisions(self):
         pkg = self.package
 
-        if pkg.belt == -1 and self.collide(pkg, self.mario):
-            pkg.put_belt(0, 160, 88)
+        if pkg.belt == 0 and self.collide(pkg, self.mario):
+            pkg.put_belt(0, 156, 80)
 
-        elif pkg.belt == 0 and pkg.x<= 88:
+        elif pkg.belt == 0 and pkg.x <= 88:
             if self.collide(pkg, self.luigi):
-                pkg.advance_belt(1, 88,64)
+                pkg.put_belt(1, 84,64)
             else:
                 pkg.fall()
 
-
-        elif pkg.belt == 1 and pkg.x >= 160:
-
+        elif pkg.belt == 1 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
-                pkg.advance_belt(2, 160, 48)
-
+                pkg.put_belt(2, 156, 48)
             else:
-
                 pkg.fall()
 
         elif pkg.belt == 2 and pkg.x <= 88:
-
             if self.collide(pkg, self.luigi):
-
-                pkg.advance_belt(3, 88, 32)
+                pkg.put_belt(3, 84, 32)
             else:
-
                 pkg.fall()
 
-        elif pkg.belt == 3 and pkg.x >= 160:
-
+        elif pkg.belt == 3 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
-
-                pkg.advance_belt(4, 160, 16)
-
+                pkg.put_belt(4, 156, 16)
             else:
                 pkg.fall()
+
         elif pkg.belt == 4 and pkg.x <= 88:
             if self.collide(pkg, self.luigi):
                 pkg.finish = True
@@ -144,7 +135,7 @@ class Board:
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
 
-        # Drawing the character
+        # Drawing the characters and packages
         self.mario.draw()
         self.luigi.draw()
         self.package.draw()

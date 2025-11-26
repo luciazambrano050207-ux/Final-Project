@@ -116,11 +116,15 @@ class Character:
         self.__side = side
 
     def move_up(self):
+        """ This method moves the character up, if it is not in the maximum
+        floor. """
         if self.floor < self.max_floors:
             self.y -= self.D
             self.floor += 1
 
     def move_down(self):
+        """ This method moves the character down, if it is not in the
+        minimum floor. """
         if self.floor > 0:
             self.y += self.D
             self.floor -= 1

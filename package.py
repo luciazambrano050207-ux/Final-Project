@@ -9,7 +9,7 @@ class Package:
         self.belts = belts
         self.belt = 0
         self.x = 224
-        self.y = 82
+        self.y = 80
         # self.img = 0
         # self.u = 32
         # self.v = 64
@@ -157,13 +157,6 @@ class Package:
         self.x = new_x
         self.y = new_y
         self.direction = self.belts[belt].direction
-        self.on_belt = True
-
-    def advance_belt(self, belt, new_x, new_y):
-        self.belt = belt
-        self.x = new_x
-        self.y = new_y
-        self.direction = self.belts[self.belt].direction
         self.on_belt = True
 
     def fall(self):
