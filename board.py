@@ -65,9 +65,9 @@ class Board:
 
 
     def update(self):
-        """ This is a pyxel method that gets executed in every iteration of the game (every
-        frame). You need to put here all the code that has to be executed in every frame. Now
-        it contains only the logic to move the character if a key is pressed."""
+        """ This is a pyxel method that gets executed in every iteration of
+        the game (every frame). Here is all the code that has to be executed
+        in every frame."""
         # To exit the game
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
@@ -76,6 +76,7 @@ class Board:
         self.luigi.update()
         self.package.update()
         self.collisions()
+
     def collisions(self):
         pkg = self.package
 
@@ -136,13 +137,14 @@ class Board:
 
 
     def draw(self):
-        """This is a pyxel method that gets executed in every iteration of the game (every
-        frame). You need to put here all the code to draw the sprites of the game.
-        """
+        """This is a pyxel method that gets executed in every iteration of the
+        game (every frame). Here is all the code to draw the sprites of the
+        game. """
         # Erasing the previous screen
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
-        # Drawing the character, parameters of pyxel.blt are (x, y, sprite tuple)
+
+        # Drawing the character
         self.mario.draw()
         self.luigi.draw()
         self.package.draw()

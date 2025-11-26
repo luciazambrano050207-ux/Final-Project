@@ -99,5 +99,5 @@ class Belt:
             self.end_x = 70
         else:
             self.start_x = 70
-            self.end_x = 210
+            self.end_x = 224
 
