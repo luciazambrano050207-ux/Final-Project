@@ -140,6 +140,8 @@ class Package:
 # self.height)
 
     def move(self):
+        """ This method moves the package a distance D according to the
+        direction. """
         if self.direction == "left":
             self.x -= self.D
         else:
@@ -149,10 +151,11 @@ class Package:
         if time.time() - self.time > 1:
             self.move()
             self.time = time.time()
+
     def put_belt(self, belt, new_x, new_y):
         self.belt = belt
-        self.y = new_y
         self.x = new_x
+        self.y = new_y
         self.direction = self.belts[belt].direction
         self.on_belt = True
 

@@ -92,6 +92,7 @@ class Belt:
         if not isinstance(y, int):
             raise TypeError('y must be a integer')
         self.__y = y
+
     def position(self):
         if self.direction == 'left':
             self.start_x = 224
