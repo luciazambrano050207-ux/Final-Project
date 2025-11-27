@@ -1,6 +1,7 @@
+import pyxel
 class Boss:
     """ This class represents the boss. """
-    def __init__(self, x, y, img, u, v, width, height):
+    def __init__(self):
         """ This method creates the Boss object by receiving all the
             information needed. The boss will appear on screen every time a
             package falls to punish Mario or Luigi, and after each break, to
@@ -13,13 +14,13 @@ class Boss:
             :param width : The width of the boss
             :param height : The height of the boss
         """
-        self.x = x
-        self.y = y
-        self.img = img
-        self.u = u
-        self.v = v
-        self.width = width
-        self.height = height
+        #self.x = x
+        #self.y = y
+        #self.img = img
+        #self.u = u
+        #self.v = v
+        #self.width = width
+        #self.height = height
         self.pkg_fall = 0
         self.visible = False
 
@@ -79,11 +80,11 @@ class Boss:
             raise TypeError("v must be a int")
         self.__v = v
 
-    def move_right(self):
-        self.x += self.D
+    #def move_right(self):
+        #self.x += self.D
 
-    def move_left(self):
-        self.x -= self.D
+    #def move_left(self):
+        #self.x -= self.D
 
     def disappear(self):
         if self.at_truck and Truck.package == 8:
@@ -94,3 +95,7 @@ class Boss:
 
     def draw(self):
         if self.visible:
+            if self.side == "right":
+                pyxel.blt(224, 56, 0, 48, 48, 16, 16)
+            else:
+                pyxel.blt(8, 104, 0, 48, 16, 16, 16)

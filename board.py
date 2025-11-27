@@ -1,5 +1,6 @@
 import pyxel
 from character import Character
+from boss import Boss
 from belt import Belt
 from package import Package
 
@@ -89,30 +90,35 @@ class Board:
                 pkg.put_belt(1, 84,64)
             else:
                 self.fall_package()
+                self.boss.side = "left"
 
         elif pkg.belt == 1 and pkg.x >= 165:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(2, 156, 48)
             else:
                 self.fall_package()
+                self.boss.side = "right"
 
         elif pkg.belt == 2 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.put_belt(3, 84, 32)
             else:
                 self.fall_package()
+                self.boss.side = "left"
 
         elif pkg.belt == 3 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(4, 156, 16)
             else:
                 self.fall_package()
+                self.boss.side = "right"
 
         elif pkg.belt == 4 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.finish = True
             else:
                 self.fall_package()
+                self.boss.side = "left"
 
     def collide(self, a, b):
         return (a.x < b.x + b.width and
@@ -121,8 +127,9 @@ class Board:
                 a.y + a.height > b.y)
 
     def fall_package(self):
-        self.pkg.fall = True
+        self.package.fall = True
         self.boss.pkg_fall += 1
+        self.boss.visible = True
 
     # self.collisions()
         #self.collide()
@@ -143,6 +150,7 @@ class Board:
         # Drawing the characters and packages
         self.mario.draw()
         self.luigi.draw()
+        self.boss.draw()
         self.package.draw()
 
         pyxel.bltm(120,0,0,120, 0,16,128)
