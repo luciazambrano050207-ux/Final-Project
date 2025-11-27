@@ -19,8 +19,9 @@ class Package:
         self.direction = "left"
         self.time = time.time()
         self.side = "right"
-        self.on_belt = False
-        self.finish = False
+        self.fall = False
+        #self.on_belt = False
+        #self.finish = False
         #self.at_truck = False
         #self.visible = True
 
@@ -159,11 +160,11 @@ class Package:
         self.direction = self.belts[belt].direction
         self.on_belt = True
 
-    def fall(self):
-        """ This method changes some attributes of the package when it
-        falls. """
-        self.on_belt = False
-        self.finish = True
+    #def fall(self):
+        #""" This method changes some attributes of the package when it
+        #falls. """
+        #self.on_belt = False
+        #self.finish = True
 
     def end_belt(self):
         """ This method returns True if the package is at the end of the
@@ -178,17 +179,20 @@ class Package:
 
 
     def draw(self):
-        if self.side == "right":
-            if self.belt == 0:
-                pyxel.blt(self.x, self.y, 0, 32,64,16,8)
-            elif self.belt == 1 or self.belt == 2:
-                pyxel.blt(self.x, self.y, 0,32, 72,16,8)
+        if not self.fall:
+            if self.side == "right":
+                if self.belt == 0:
+                    pyxel.blt(self.x, self.y, 0, 32,64,16,8)
+                elif self.belt == 1 or self.belt == 2:
+                    pyxel.blt(self.x, self.y, 0,32, 72,16,8)
+                else:
+                    pyxel.blt(self.x, self.y, 0 , 32, 80, 16, 8)
             else:
-                pyxel.blt(self.x, self.y, 0 , 32, 80, 16, 8)
+                if self.belt == 0 or self.belt == 1:
+                    pyxel.blt(self.x, self.y, 0, 48,64, 16, 8)
+                elif self.belt == 2 or self.belt == 3:
+                    pyxel.blt(self.x, self.y, 0, 48, 72, 16, 8)
+                else:
+                    pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         else:
-            if self.belt == 0 or self.belt == 1:
-                pyxel.blt(self.x, self.y, 0, 48,64, 16, 8)
-            elif self.belt == 2 or self.belt == 3:
-                pyxel.blt(self.x, self.y, 0, 48, 72, 16, 8)
-            else:
-                pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
+            pyxel.blt(self.x,110, 0, 0, 120,16, 8)

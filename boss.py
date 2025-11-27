@@ -20,6 +20,8 @@ class Boss:
         self.v = v
         self.width = width
         self.height = height
+        self.pkg_fall = 0
+        self.visible = False
 
     @property
     def x(self) -> int:
@@ -89,3 +91,6 @@ class Boss:
         if not self.active and self.side == "left" and self.x == 50 \
                 and self.y == 0:
             self.visible = False
+
+    def draw(self):
+        if self.visible:

@@ -14,11 +14,12 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=176, y=88, D=32, max_floors=2,
+        self.mario = Character(x=175, y=88, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
                                side= "right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
                                down=pyxel.KEY_S, side="left")
+        self.boss = Boss()
 
         #self.belts_y = [88, 72, 56, 40, 24]
         self.belts = [Belt(88, "left", 2),
@@ -83,41 +84,45 @@ class Board:
         if pkg.belt == 0 and self.collide(pkg, self.mario):
             pkg.put_belt(0, 156, 80)
 
-        elif pkg.belt == 0 and pkg.x <= 88:
+        elif pkg.belt == 0 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.put_belt(1, 84,64)
             else:
-                pkg.fall()
+                self.fall_package()
 
-        elif pkg.belt == 1 and pkg.x >= 152:
+        elif pkg.belt == 1 and pkg.x >= 165:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(2, 156, 48)
             else:
-                pkg.fall()
+                self.fall_package()
 
-        elif pkg.belt == 2 and pkg.x <= 88:
+        elif pkg.belt == 2 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.put_belt(3, 84, 32)
             else:
-                pkg.fall()
+                self.fall_package()
 
         elif pkg.belt == 3 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(4, 156, 16)
             else:
-                pkg.fall()
+                self.fall_package()
 
-        elif pkg.belt == 4 and pkg.x <= 88:
+        elif pkg.belt == 4 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.finish = True
             else:
-                pkg.fall()
+                self.fall_package()
 
     def collide(self, a, b):
         return (a.x < b.x + b.width and
                 a.x + a.width > b.x and
                 a.y < b.y + b.height and
                 a.y + a.height > b.y)
+
+    def fall_package(self):
+        self.pkg.fall = True
+        self.boss.pkg_fall += 1
 
     # self.collisions()
         #self.collide()
