@@ -15,7 +15,7 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=175, y=88, D=32, max_floors=2,
+        self.mario = Character(x=174, y=88, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
                                side= "right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
@@ -83,32 +83,32 @@ class Board:
         pkg = self.package
 
         if pkg.belt == 0 and self.collide(pkg, self.mario):
-            pkg.put_belt(0, 156, 80)
+            pkg.put_belt(0, 156, 82)
 
         elif pkg.belt == 0 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
-                pkg.put_belt(1, 84,64)
+                pkg.put_belt(1, 84,66)
             else:
                 self.fall_package()
                 self.boss.side = "left"
 
         elif pkg.belt == 1 and pkg.x >= 165:
             if self.collide(pkg, self.mario):
-                pkg.put_belt(2, 156, 48)
+                pkg.put_belt(2, 156, 50)
             else:
                 self.fall_package()
                 self.boss.side = "right"
 
         elif pkg.belt == 2 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
-                pkg.put_belt(3, 84, 32)
+                pkg.put_belt(3, 84, 34)
             else:
                 self.fall_package()
                 self.boss.side = "left"
 
         elif pkg.belt == 3 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
-                pkg.put_belt(4, 156, 16)
+                pkg.put_belt(4, 156, 18)
             else:
                 self.fall_package()
                 self.boss.side = "right"
@@ -129,14 +129,7 @@ class Board:
     def fall_package(self):
         self.package.fall = True
         self.boss.pkg_fall += 1
-        self.boss.visible = True
-
-    # self.collisions()
-        #self.collide()
-
-
-
-
+        self.boss.punish = True
 
 
     def draw(self):
@@ -158,14 +151,4 @@ class Board:
         # Text in screen without having to do the letters
         pyxel.text(40,5, "Easy", 15)
 
-
-   # def collide(self):
-        #if self.package.x == 160:
-           # if (self.mario.floor == 2 * self.package.belt and
-              #  self.mario.floor != 0 and self.package.belt != 0):
-               # self.package.belt += 1
-       # if self.package.x == 88:
-           # if ((self.luigi.floor == 0 and self.package.belt == 0) or
-               # (self.luigi.floor == 2 * self.package.belt + 1)):
-               # self.package.belt += 1
 

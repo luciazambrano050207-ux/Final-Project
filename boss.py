@@ -22,80 +22,87 @@ class Boss:
         #self.width = width
         #self.height = height
         self.pkg_fall = 0
-        self.visible = False
+        #self.visible = False
+        self.punish = False
+        self.finish_break = False
 
-    @property
-    def x(self) -> int:
-        return self.__x
 
-    @x.setter
-    def x(self, x: int):
-        if not isinstance(x, int):
-            raise TypeError("The x must be an int")
-        elif x < 0:
-            raise ValueError("The x must be >= 0")
-        else:
-            self.__x = x
+    #def disappear(self):
+        #if self.at_truck and Truck.package == 8:
+            #self.visible = False
+        #if not self.active and self.side == "left" and self.x == 50 \
+                #and self.y == 0:
+            #self.visible = False
 
-    @property
-    def y(self) -> int:
-        return self.__y
+    def draw(self):
+        if self.punish:
+            if self.side == "right":
+                pyxel.blt(224, 56, 0, 48, 48, 16, 16)
+            else:
+                pyxel.blt(8, 104, 0, 48, 16, 16, 16)
+        if self.finish_break:
+            pyxel.blt(224, 56, 0, 48, 48, 16, 16)
+            pyxel.blt(8, 104, 0, 48, 16, 16, 16)
 
-    @y.setter
-    def y(self, y: int):
-        if not isinstance(y, int):
-            raise TypeError("The y must be an int")
-        elif y < 0:
-            raise ValueError("The y must be >= 0")
-        else:
-            self.__y = y
 
-    @property
-    def img(self):
-        return self.__img
+    #@property
+    #def x(self) -> int:
+        #return self.__x
 
-    @img.setter
-    def img(self, img):
-        if not isinstance(img, int):
-            raise TypeError("img must be a int")
-        self.__img = img
+    #@x.setter
+    #def x(self, x: int):
+        #if not isinstance(x, int):
+            #raise TypeError("The x must be an int")
+        #elif x < 0:
+            #raise ValueError("The x must be >= 0")
+         #else:
+            #self.__x = x
 
-    @property
-    def u(self):
-        return self.__u
+    #@property
+    #def y(self) -> int:
+        #return self.__y
 
-    @u.setter
-    def u(self, u):
-        if not isinstance(u, int):
-            raise TypeError("u must be a int")
-        self.__u = u
+    #@y.setter
+    #def y(self, y: int):
+        #if not isinstance(y, int):
+            #raise TypeError("The y must be an int")
+        #elif y < 0:
+            #raise ValueError("The y must be >= 0")
+        #else:
+            #self.__y = y
 
-    @property
-    def v(self):
-        return self.__v
+    #@property
+    #def img(self):
+        #return self.__img
 
-    @v.setter
-    def v(self, v):
-        if not isinstance(v, int):
-            raise TypeError("v must be a int")
-        self.__v = v
+    #@img.setter
+    #def img(self, img):
+        #if not isinstance(img, int):
+            #raise TypeError("img must be a int")
+        #self.__img = img
+
+    #@property
+    #def u(self):
+        #return self.__u
+
+    #@u.setter
+    #def u(self, u):
+        #if not isinstance(u, int):
+            #raise TypeError("u must be a int")
+        #self.__u = u
+
+    #@property
+    #def v(self):
+        #return self.__v
+
+    #@v.setter
+    #def v(self, v):
+        #if not isinstance(v, int):
+            #raise TypeError("v must be a int")
+        #self.__v = v
 
     #def move_right(self):
         #self.x += self.D
 
     #def move_left(self):
         #self.x -= self.D
-
-    def disappear(self):
-        if self.at_truck and Truck.package == 8:
-            self.visible = False
-        if not self.active and self.side == "left" and self.x == 50 \
-                and self.y == 0:
-            self.visible = False
-
-    def draw(self):
-        if self.visible:
-            if self.side == "right":
-                pyxel.blt(224, 56, 0, 48, 48, 16, 16)
-            else:
-                pyxel.blt(8, 104, 0, 48, 16, 16, 16)

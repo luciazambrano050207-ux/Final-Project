@@ -9,7 +9,7 @@ class Package:
         self.belts = belts
         self.belt = 0
         self.x = 224
-        self.y = 80
+        self.y = 82
         # self.img = 0
         # self.u = 32
         # self.v = 64
@@ -51,35 +51,35 @@ class Package:
         else:
             self.__y = y
 
-    @property
-    def img(self):
-        return self.__img
+    #@property
+    #def img(self):
+        #return self.__img
 
-    @img.setter
-    def img(self, img):
-        if not isinstance(img, int):
-            raise TypeError("img must be a int")
-        self.__img = img
+    #@img.setter
+    #def img(self, img):
+        #if not isinstance(img, int):
+            #raise TypeError("img must be a int")
+        #self.__img = img
 
-    @property
-    def u(self):
-        return self.__u
+    #@property
+    #def u(self):
+        #return self.__u
 
-    @u.setter
-    def u(self, u):
-        if not isinstance(u, int):
-            raise TypeError("u must be a int")
-        self.__u = u
+    #@u.setter
+    #def u(self, u):
+        #if not isinstance(u, int):
+            #raise TypeError("u must be a int")
+        #self.__u = u
 
-    @property
-    def v(self):
-        return self.__v
+    #@property
+    #def v(self):
+        #return self.__v
 
-    @v.setter
-    def v(self, v):
-        if not isinstance(v, int):
-            raise TypeError("v must be a int")
-        self.__v = v
+    #@v.setter
+    #def v(self, v):
+        #if not isinstance(v, int):
+            #raise TypeError("v must be a int")
+        #self.__v = v
 
     @property
     def direction(self) -> str:
