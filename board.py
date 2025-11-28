@@ -82,6 +82,27 @@ class Board:
         self.package.update()
         self.collisions()
 
+
+
+    def fall_package(self):
+        self.package.fall = True
+        self.boss.pkg_fall += 1
+        self.boss.punish = True
+
+    def fall_mario(self):
+        self.boss.side = "right"
+        self.mario.fall = True
+
+    def fall_luigi(self):
+        self.boss.side = "left"
+        self.luigi.fall = True
+
+    def collide(self, a, b):
+        return (a.x < b.x + b.width and
+                a.x + a.width > b.x and
+                a.y < b.y + b.height and
+                a.y + a.height > b.y)
+
     def collisions(self):
         pkg = self.package
 
@@ -127,24 +148,6 @@ class Board:
                 self.fall_package()
                 self.fall_luigi()
 
-    def collide(self, a, b):
-        return (a.x < b.x + b.width and
-                a.x + a.width > b.x and
-                a.y < b.y + b.height and
-                a.y + a.height > b.y)
-
-    def fall_package(self):
-        self.package.fall = True
-        self.boss.pkg_fall += 1
-        self.boss.punish = True
-
-    def fall_mario(self):
-        self.boss.side = "right"
-        self.mario.fall = True
-
-    def fall_luigi(self):
-        self.boss.side = "left"
-        self.luigi.fall = True
 
 
     def draw(self):
