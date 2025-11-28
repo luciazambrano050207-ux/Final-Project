@@ -17,7 +17,7 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=174, y=94, D=32, max_floors=2,
+        self.mario = Character(x=174, y=96, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
                                side= "right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
@@ -120,7 +120,7 @@ class Board:
                 self.fall_package()
                 self.fall_luigi()
 
-        elif pkg.belt == 1 and pkg.x >= 165:
+        elif pkg.belt == 1 and pkg.x >= 162:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(2, 156, 50)
             else:
@@ -134,7 +134,7 @@ class Board:
                 self.fall_package()
                 self.fall_luigi()
 
-        elif pkg.belt == 3 and pkg.x >= 165:
+        elif pkg.belt == 3 and pkg.x >= 162:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(4, 156, 18)
             else:
