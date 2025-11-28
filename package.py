@@ -166,15 +166,15 @@ class Package:
         #self.on_belt = False
         #self.finish = True
 
-    def end_belt(self):
-        """ This method returns True if the package is at the end of the
-        belt and False otherwise. """
-        if self.belt < 0:
-            return False
-        if self.direction == "left":
-            return self.x <= self.belts[self.belt].end_x
-        else:
-            return self.x >= self.belts[self.belt].end_x
+    #def end_belt(self):
+        #""" This method returns True if the package is at the end of the
+        #belt and False otherwise. """
+        #if self.belt < 0:
+            #return False
+        #if self.direction == "left":
+            #return self.x <= self.belts[self.belt].end_x
+        #else:
+            #return self.x >= self.belts[self.belt].end_x
 
 
 
