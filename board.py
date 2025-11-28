@@ -3,9 +3,11 @@ from character import Character
 from boss import Boss
 from belt import Belt
 from package import Package
+from truck import Truck
+
 
 class Board:
-    """The board of the game"""
+    """ This class represents the board of the game. """
 
     def __init__(self, width: int, height: int):
         """ Method that creates the board.
@@ -21,6 +23,7 @@ class Board:
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
                                down=pyxel.KEY_S, side="left")
         self.boss = Boss()
+        self.truck = Truck()
 
         #self.belts_y = [88, 72, 56, 40, 24]
         self.belts = [Belt(88, "left", 2),
@@ -82,43 +85,47 @@ class Board:
     def collisions(self):
         pkg = self.package
 
-        if pkg.belt == 0 and self.collide(pkg, self.mario):
-            pkg.put_belt(0, 156, 82)
+        if pkg.belt == 0 and 180 <= pkg.x <= 186:
+            if self.collide(pkg, self.mario):
+                pkg.put_belt(0, 156, 82)
+            else:
+                self.fall_package()
+                self.fall_mario()
 
         elif pkg.belt == 0 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.put_belt(1, 84,66)
             else:
                 self.fall_package()
-                self.boss.side = "left"
+                self.fall_luigi()
 
         elif pkg.belt == 1 and pkg.x >= 165:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(2, 156, 50)
             else:
                 self.fall_package()
-                self.boss.side = "right"
+                self.fall_mario()
 
         elif pkg.belt == 2 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.put_belt(3, 84, 34)
             else:
                 self.fall_package()
-                self.boss.side = "left"
+                self.fall_luigi()
 
         elif pkg.belt == 3 and pkg.x >= 152:
             if self.collide(pkg, self.mario):
                 pkg.put_belt(4, 156, 18)
             else:
                 self.fall_package()
-                self.boss.side = "right"
+                self.fall_mario()
 
         elif pkg.belt == 4 and pkg.x <= 80:
             if self.collide(pkg, self.luigi):
                 pkg.finish = True
             else:
                 self.fall_package()
-                self.boss.side = "left"
+                self.fall_luigi()
 
     def collide(self, a, b):
         return (a.x < b.x + b.width and
@@ -130,6 +137,14 @@ class Board:
         self.package.fall = True
         self.boss.pkg_fall += 1
         self.boss.punish = True
+
+    def fall_mario(self):
+        self.boss.side = "right"
+        self.mario.fall = True
+
+    def fall_luigi(self):
+        self.boss.side = "left"
+        self.luigi.fall = True
 
 
     def draw(self):
@@ -144,6 +159,7 @@ class Board:
         self.mario.draw()
         self.luigi.draw()
         self.boss.draw()
+        self.truck.draw()
         self.package.draw()
 
         pyxel.bltm(120,0,0,120, 0,16,128)

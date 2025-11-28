@@ -5,7 +5,7 @@ class Package:
     def __init__(self, belts):
         """ This method creates a Package object by receiving all the
         information needed. Every package will have the same values for the
-        attributes when we create them."""
+        attributes when we create them. """
         self.belts = belts
         self.belt = 0
         self.x = 224

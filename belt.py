@@ -1,5 +1,5 @@
 class Belt:
-    """ This class represents the belt """
+    """ This class represents the belt. """
     def __init__(self, y, direction, speed):
         #(self, direction: str, level:int, speed:float, start_x:int,
         #end_x:int, y_ground: int = 200, y_step: int = -60):

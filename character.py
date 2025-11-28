@@ -1,6 +1,6 @@
 import pyxel
 class Character:
-    """This class represents the player of the game: Mario and Luigi"""
+    """ This class represents the player of the game: Mario and Luigi """
 
     def __init__(self, x, y, D , max_floors, up,
                  down, side):
@@ -31,6 +31,7 @@ class Character:
         self.up = up
         self.down = down
         self.side = side
+        self.fall = False
 
 
     @property
@@ -136,10 +137,14 @@ class Character:
             self.move_down()
 
     def draw(self):
-        if self.side == "right":
-            if self.floor == 0:
-                pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
+        if not self.fall:
+            if self.side == "right":
+                if self.floor == 0:
+                    pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
+                else:
+                    pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
             else:
-                pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
+                pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
         else:
-            pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
+            if self.side == "right":
+                pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
