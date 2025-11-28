@@ -13,7 +13,7 @@ class Package:
         # self.img = 0
         # self.u = 32
         # self.v = 64
-        self.width = 8
+        self.width = 16
         self.height = 16
         self.D = 8
         self.direction = "left"
@@ -148,10 +148,40 @@ class Package:
         else:
             self.x += self.D
 
-    def update(self):
-        if time.time() - self.time > 1:
-            self.move()
-            self.time = time.time()
+    def move_down(self):
+        """ This method moves down the package a distance D. """
+        self.y += self.D
+
+
+    def start_fall_at_truck(self, pkgs):
+        self.y = 16
+        if pkgs % 2 == 1:
+            self.x = 24
+        else:
+            self.x = 40
+        self.go_truck = False
+        self.fall_truck = True
+
+    def fall_at_truck(self, pkgs):
+        if pkgs == 0 or pkgs == 1:
+            for _ in range(5):
+                self.move_down()
+
+        #if pkgs % 2 == 1:
+            #pyxel.blt(24, 16, 0, 48, 80, 16, 8)
+        #else:
+            #pyxel.blt(40, 16, 0, 48, 80, 16, 8)
+
+    def update(self, pkgs):
+        if self.go_truck:
+            self.fall_at_truck(pkgs)
+        elif self.fall_truck:
+            self.fall_at_truck(pkgs)
+        else:
+            if time.time() - self.time > 1:
+                self.move()
+                self.time = time.time()
+
 
     def put_belt(self, belt, new_x, new_y):
         self.belt = belt
@@ -175,6 +205,14 @@ class Package:
             #return self.x <= self.belts[self.belt].end_x
         #else:
             #return self.x >= self.belts[self.belt].end_x
+
+    def change_sides(self):
+        """ This method changes the attribute side of the package when it
+        moves from one side of the screen to the other. """
+        if self.x <= 128:
+            self.side = "left"
+        if self.x >= 128:
+            self.side = "right"
 
 
 

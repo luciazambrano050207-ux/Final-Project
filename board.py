@@ -17,7 +17,7 @@ class Board:
         self.width = width
         self.height = height
 
-        self.mario = Character(x=174, y=96, D=32, max_floors=2,
+        self.mario = Character(x=174, y=88, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
                                side= "right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
@@ -31,7 +31,8 @@ class Board:
                       Belt(56,"left", 2),
                       Belt(40, "right", 2),
                       Belt(24, "left", 2)]
-        self.package = Package(self.belts)
+        #self.package = Package(self.belts)
+        self.packages = []
         #self.mario_catch_x = 160
         #self.luigi_catch_x = 120
 
@@ -79,24 +80,22 @@ class Board:
 
         self.mario.update()
         self.luigi.update()
-        self.package.update()
+        #self.package.update()
+        for package in self.packages:
+            package.update(self.truck.package)
         self.collisions()
 
+        #if pyxel.frame_count % 400 == 0:
+            #for i in range(3):
+                #if not self.packages or self.packages[-1].x < 200:
+                    #self.packages.append(Package(self.belts))
+        if len(self.packages)== 0:
+            for i in range(2):
+                self.packages.append(Package(self.belts))
+        elif pyxel.frame_count % 400 == 0:
 
-
-    def fall_package(self):
-        self.package.fall = True
-        self.boss.pkg_fall += 1
-        self.boss.punish = True
-
-    def fall_mario(self):
-        self.boss.side = "right"
-        self.mario.fall = True
-
-    def fall_luigi(self):
-        self.boss.side = "left"
-        self.luigi.fall = True
-
+            for i in range(2):
+                self.packages.append(Package(self.belts))
     def collide(self, a, b):
         return (a.x < b.x + b.width and
                 a.x + a.width > b.x and
@@ -104,49 +103,55 @@ class Board:
                 a.y + a.height > b.y)
 
     def collisions(self):
-        pkg = self.package
+        for pkg in self.packages:
 
-        if pkg.belt == 0 and 180 <= pkg.x <= 186:
-            if self.collide(pkg, self.mario):
-                pkg.put_belt(0, 156, 82)
-            else:
-                self.fall_package()
-                self.fall_mario()
+            if pkg.belt == 0 and 180 <= pkg.x <= 186:
+                if self.collide(pkg, self.mario):
+                    pkg.put_belt(0, 156, 82)
+                else:
+                    pkg.fall_package()
+                    self.mario.fall_package()
+                    self.boss.fall_mario()
 
-        elif pkg.belt == 0 and pkg.x <= 80:
-            if self.collide(pkg, self.luigi):
-                pkg.put_belt(1, 84,66)
-            else:
-                self.fall_package()
-                self.fall_luigi()
+            elif pkg.belt == 0 and pkg.x <= 80:
+                if self.collide(pkg, self.luigi):
+                    pkg.put_belt(1, 84,66)
+                else:
+                    pkg.fall_package()
+                    self.luigi.fall_package()
+                    self.boss.fall_luigi()
 
-        elif pkg.belt == 1 and pkg.x >= 162:
-            if self.collide(pkg, self.mario):
-                pkg.put_belt(2, 156, 50)
-            else:
-                self.fall_package()
-                self.fall_mario()
+            elif pkg.belt == 1 and pkg.x >= 162:
+                if self.collide(pkg, self.mario):
+                    pkg.put_belt(2, 156, 50)
+                else:
+                    pkg.fall_package()
+                    self.mario.fall_package()
+                    self.boss.fall_mario()
 
-        elif pkg.belt == 2 and pkg.x <= 80:
-            if self.collide(pkg, self.luigi):
-                pkg.put_belt(3, 84, 34)
-            else:
-                self.fall_package()
-                self.fall_luigi()
+            elif pkg.belt == 2 and pkg.x <= 80:
+                if self.collide(pkg, self.luigi):
+                    pkg.put_belt(3, 84, 34)
+                else:
+                    pkg.fall_package()
+                    self.luigi.fall_package()
+                    self.boss.fall_luigi()
 
-        elif pkg.belt == 3 and pkg.x >= 162:
-            if self.collide(pkg, self.mario):
-                pkg.put_belt(4, 156, 18)
-            else:
-                self.fall_package()
-                self.fall_mario()
+            elif pkg.belt == 3 and pkg.x >= 162:
+                if self.collide(pkg, self.mario):
+                    pkg.put_belt(4, 156, 18)
+                else:
+                    pkg.fall_package()
+                    self.mario.fall_package()
+                    self.boss.fall_mario()
 
-        elif pkg.belt == 4 and pkg.x <= 80:
-            if self.collide(pkg, self.luigi):
-                pkg.finish = True
-            else:
-                self.fall_package()
-                self.fall_luigi()
+            elif pkg.belt == 4 and pkg.x <= 80:
+                if self.collide(pkg, self.luigi):
+                    pkg.go_truck = True
+                else:
+                    pkg.fall_package()
+                    self.luigi.fall_package()
+                    self.boss.fall_luigi()
 
 
 
@@ -163,7 +168,9 @@ class Board:
         self.luigi.draw()
         self.boss.draw()
         self.truck.draw()
-        self.package.draw()
+        for pkg in self.packages:
+            pkg.draw()
+
 
         pyxel.bltm(120,0,0,120, 0,16,128)
 

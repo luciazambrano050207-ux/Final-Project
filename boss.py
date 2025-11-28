@@ -34,6 +34,16 @@ class Boss:
                 #and self.y == 0:
             #self.visible = False
 
+    def fall_mario(self):
+        self.side = "right"
+        self.pkg_fall += 1
+        self.punish = True
+
+    def fall_luigi(self):
+        self.side = "left"
+        self.pkg_fall += 1
+        self.punish = True
+
     def draw(self):
         if self.punish:
             if self.side == "right":
