@@ -20,8 +20,10 @@ class Package:
         self.time = time.time()
         self.side = "right"
         self.fall = False
+        self.go_truck = False
+        self.fall_truck = False
+        self.stop = False
         #self.on_belt = False
-        #self.finish = False
         #self.at_truck = False
         #self.visible = True
 
@@ -51,35 +53,6 @@ class Package:
         else:
             self.__y = y
 
-    #@property
-    #def img(self):
-        #return self.__img
-
-    #@img.setter
-    #def img(self, img):
-        #if not isinstance(img, int):
-            #raise TypeError("img must be a int")
-        #self.__img = img
-
-    #@property
-    #def u(self):
-        #return self.__u
-
-    #@u.setter
-    #def u(self, u):
-        #if not isinstance(u, int):
-            #raise TypeError("u must be a int")
-        #self.__u = u
-
-    #@property
-    #def v(self):
-        #return self.__v
-
-    #@v.setter
-    #def v(self, v):
-        #if not isinstance(v, int):
-            #raise TypeError("v must be a int")
-        #self.__v = v
 
     @property
     def direction(self) -> str:
@@ -107,38 +80,6 @@ class Package:
         else:
             self.__side = side.lower()
 
-
-
-
-   # @property
-   # def at_truck(self) -> bool:
-        #return self.__at_truck
-
-   # @at_truck.setter
-   # def at_truck(self, at_truck: bool):
-        #if not isinstance(at_truck, bool):
-          #  raise TypeError("The at_truck must be a boolean")
-       # else:
-          #  self.__at_truck = at_truck
-
-    #@property
-  #  def visible(self) -> bool:
-        #return self.__visible
-
-    #@visible.setter
-    #def visible(self, visible: bool):
-      #  if not isinstance(visible, bool):
-            # raise TypeError("visible must be a boolean")
-        #else:
-            # self.__visible = visible
-
-    #def update(self):
-       # self.x -=self.D
-        #if self.x < -self.width:
-           # self.x = 256
-  #  def draw(self):
-       # pyxel.blt(self.x, self.y, self.img, self.u, self.v, self.width,
-# self.height)
 
     def move(self):
         """ This method moves the package a distance D according to the
@@ -190,11 +131,10 @@ class Package:
         self.direction = self.belts[belt].direction
         self.on_belt = True
 
-    #def fall(self):
-        #""" This method changes some attributes of the package when it
-        #falls. """
-        #self.on_belt = False
-        #self.finish = True
+    def fall_package(self):
+        """ This method changes the attribute fall of the package when it
+        falls. """
+        self.fall = True
 
     #def end_belt(self):
         #""" This method returns True if the package is at the end of the
@@ -217,6 +157,7 @@ class Package:
 
 
     def draw(self):
+        self.change_sides()
         if not self.fall:
             if self.side == "right":
                 if self.belt == 0:
@@ -237,4 +178,55 @@ class Package:
 
 
 
+    #@property
+    #def img(self):
+        #return self.__img
 
+    #@img.setter
+    #def img(self, img):
+        #if not isinstance(img, int):
+            #raise TypeError("img must be a int")
+        #self.__img = img
+
+    #@property
+    #def u(self):
+        #return self.__u
+
+    #@u.setter
+    #def u(self, u):
+        #if not isinstance(u, int):
+            #raise TypeError("u must be a int")
+        #self.__u = u
+
+    #@property
+    #def v(self):
+        #return self.__v
+
+    #@v.setter
+    #def v(self, v):
+        #if not isinstance(v, int):
+            #raise TypeError("v must be a int")
+        #self.__v = v
+
+
+   # @property
+   # def at_truck(self) -> bool:
+        #return self.__at_truck
+
+   # @at_truck.setter
+   # def at_truck(self, at_truck: bool):
+        #if not isinstance(at_truck, bool):
+          #  raise TypeError("The at_truck must be a boolean")
+       # else:
+          #  self.__at_truck = at_truck
+
+    #@property
+  #  def visible(self) -> bool:
+        #return self.__visible
+
+    #@visible.setter
+    #def visible(self, visible: bool):
+      #  if not isinstance(visible, bool):
+            # raise TypeError("visible must be a boolean")
+        #else:
+            # self.__visible = visible

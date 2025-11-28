@@ -130,6 +130,9 @@ class Character:
             self.y += self.D
             self.floor -= 1
 
+    def fall_package(self):
+        self.fall = True
+
     def update(self):
         if pyxel.btnp(self.up):
             self.move_up()
