@@ -196,3 +196,7 @@ class Package:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         else:
             pyxel.blt(self.x,110, 0, 0, 120,16, 8)
+
+
+
+
