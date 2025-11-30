@@ -109,6 +109,16 @@ class Package:
         if pkgs == 0 or pkgs == 1:
             for _ in range(5):
                 self.move_down()
+        elif pkgs == 2 or pkgs == 3:
+            for _ in range(7):
+                self.move_down()
+        elif pkgs == 4 or pkgs == 5:
+            for _ in range(9):
+                self.move_down()
+        elif pkgs == 6 or pkgs == 7:
+            for _ in range(11):
+                self.move_down()
+        self.fall_truck = False
 
         #if pkgs % 2 == 1:
             #pyxel.blt(24, 16, 0, 48, 80, 16, 8)
