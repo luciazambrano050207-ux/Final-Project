@@ -89,14 +89,17 @@ class Board:
             #for i in range(3):
                 #if not self.packages or self.packages[-1].x < 200:
                     #self.packages.append(Package(self.belts))
-        if len(self.packages)== 0:
+        if len(self.packages)== 0: #If the list is empty, add one package
             self.packages.append(Package(self.belts))
         else:
-            if len(self.packages) % 2 == 0:
+            if len(self.packages) % 2 == 0: #If the number of package is
+                # even, if number of belt is the last one and it's in the
+                # middle of this belt, another package moves.
                 if (self.packages[len(self.packages) - 2].belt == 4 and
                     self.packages[len(self.packages) - 2].x <= 120):
                         self.packages.append(Package(self.belts))
-            else:
+            else: #If the number of package is odd, after, 8 moves of the
+                # first package, another package moves
                 if self.packages[len(self.packages) - 1].moves >= 8:
                     self.packages.append(Package(self.belts))
 
