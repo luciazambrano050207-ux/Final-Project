@@ -82,8 +82,9 @@ class Board:
         self.luigi.update()
         #self.package.update()
         for package in self.packages:
+            if not package.finish:
+                package.update(self.truck_package_counter)
 
-            package.update(self.truck_package_counter)
         self.collisions()
 
         #if pyxel.frame_count % 400 == 0:
@@ -173,6 +174,8 @@ class Board:
                         pkg.x, pkg.y = 24, 32
                     elif self.truck_package_counter == 7:
                         pkg.x, pkg.y = 40, 32
+                    pkg.finish = True
+                    pkg.belt = -1
 
                     pkg.finish = True
                     self.truck_package_counter += 1

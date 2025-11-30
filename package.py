@@ -116,6 +116,9 @@ class Package:
             #pyxel.blt(40, 16, 0, 48, 80, 16, 8)
 
     def update(self, pkgs):
+        if self.finish or self.fall:
+            return
+
         if self.go_truck:
             self.fall_at_truck(pkgs)
         elif self.fall_truck:
