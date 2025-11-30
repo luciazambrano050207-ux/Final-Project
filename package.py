@@ -23,6 +23,8 @@ class Package:
         self.go_truck = False
         self.fall_truck = False
         self.stop = False
+        self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
+        # paquete
         #self.on_belt = False
         #self.at_truck = False
         #self.visible = True
@@ -122,6 +124,7 @@ class Package:
             if time.time() - self.time > 1:
                 self.move()
                 self.time = time.time()
+                self.moves += 1
 
 
     def put_belt(self, belt, new_x, new_y):

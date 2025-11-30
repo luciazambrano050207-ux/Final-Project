@@ -90,12 +90,16 @@ class Board:
                 #if not self.packages or self.packages[-1].x < 200:
                     #self.packages.append(Package(self.belts))
         if len(self.packages)== 0:
-            for i in range(2):
-                self.packages.append(Package(self.belts))
-        elif pyxel.frame_count % 400 == 0:
+            self.packages.append(Package(self.belts))
+        else:
+            if len(self.packages) % 2 == 0:
+                if (self.packages[len(self.packages) - 2].belt == 4 and
+                    self.packages[len(self.packages) - 2].x <= 120):
+                        self.packages.append(Package(self.belts))
+            else:
+                if self.packages[len(self.packages) - 1].moves >= 8:
+                    self.packages.append(Package(self.belts))
 
-            for i in range(2):
-                self.packages.append(Package(self.belts))
     def collide(self, a, b):
         return (a.x < b.x + b.width and
                 a.x + a.width > b.x and
