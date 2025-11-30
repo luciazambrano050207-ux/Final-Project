@@ -24,6 +24,10 @@ class Board:
                                down=pyxel.KEY_S, side="left")
         self.boss = Boss()
         self.truck = Truck()
+        self.packages = []
+        self.truck_positions = [(24,56), (40,56), (24,48), (40,48), (24,40),
+                                (40,40),(24, 32), (40,32)]
+        self.truck_package_counter = 0
 
         #self.belts_y = [88, 72, 56, 40, 24]
         self.belts = [Belt(88, "left", 2),
@@ -31,10 +35,6 @@ class Board:
                       Belt(56,"left", 2),
                       Belt(40, "right", 2),
                       Belt(24, "left", 2)]
-        #self.package = Package(self.belts)
-        self.packages = []
-        #self.mario_catch_x = 160
-        #self.luigi_catch_x = 120
 
 
         pyxel.init(self.width, self.height, title="Mario")
@@ -82,7 +82,8 @@ class Board:
         self.luigi.update()
         #self.package.update()
         for package in self.packages:
-            package.update(self.truck.package)
+
+            package.update(self.truck_package_counter)
         self.collisions()
 
         #if pyxel.frame_count % 400 == 0:
@@ -152,13 +153,37 @@ class Board:
                     self.mario.fall_package()
                     self.boss.fall_mario()
 
-            elif pkg.belt == 4 and pkg.x <= 80:
+            elif pkg.belt == 4 and pkg.x <= 80: #esto es para ver que cuando
+                # colisione con luigi en la ultima plataforma, se tiene que
+                # ir a una parte del truck, se tiene que mejorar o simplificar
                 if self.collide(pkg, self.luigi):
-                    pkg.go_truck = True
+                    if self.truck_package_counter == 0:
+                        pkg.x, pkg.y = 24, 56
+                    elif self.truck_package_counter == 1:
+                        pkg.x, pkg.y = 40, 56
+                    elif self.truck_package_counter == 2:
+                        pkg.x, pkg.y = 24, 48
+                    elif self.truck_package_counter == 3:
+                        pkg.x, pkg.y = 40, 48
+                    elif self.truck_package_counter == 4:
+                        pkg.x, pkg.y = 24, 40
+                    elif self.truck_package_counter == 5:
+                        pkg.x, pkg.y = 40, 40
+                    elif self.truck_package_counter == 6:
+                        pkg.x, pkg.y = 24, 32
+                    elif self.truck_package_counter == 7:
+                        pkg.x, pkg.y = 40, 32
+
                     pkg.finish = True
+                    self.truck_package_counter += 1
+                    if self.truck_package_counter == 8:
+                        self.truck.visible = False
+
+                    #pkg.go_truck = True
+                    #pkg.finish = True
                 else:
                     pkg.fall_package()
-                    self.luigi.fall_package()
+                    #self.luigi.fall_package()
                     self.boss.fall_luigi()
 
 

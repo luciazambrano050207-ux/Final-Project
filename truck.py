@@ -9,7 +9,7 @@ class Truck:
         #self.y = 30
         #self.package = 0
         #self.image =
-        #self.visible = True
+        self.visible = True
         self.package = 0
 
     @property

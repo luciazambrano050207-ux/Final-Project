@@ -22,7 +22,7 @@ class Package:
         self.fall = False
         self.go_truck = False
         self.fall_truck = False
-        self.stop = False
+        self.finish = False
         self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
         # paquete
         #self.on_belt = False
@@ -37,8 +37,8 @@ class Package:
     def x(self, x: int):
         if not isinstance(x, int):
             raise TypeError("The x must be an int")
-        elif x < 0:
-            raise ValueError("The x must be >= 0")
+        if x < 0:
+            x = 0
         else:
             self.__x = x
 
