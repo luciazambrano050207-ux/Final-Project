@@ -155,6 +155,7 @@ class Board:
             elif pkg.belt == 4 and pkg.x <= 80:
                 if self.collide(pkg, self.luigi):
                     pkg.go_truck = True
+                    pkg.finish = True
                 else:
                     pkg.fall_package()
                     self.luigi.fall_package()
