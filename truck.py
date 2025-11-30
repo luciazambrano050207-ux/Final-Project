@@ -2,9 +2,7 @@ import pyxel
 class Truck:
     """ This class represents the truck. """
     def __init__(self):
-        """ This method creates a Truck object by receiving all the
-            information needed.
-        """
+        """ This method creates a Truck object. """
         #self.x = 10
         #self.y = 30
         #self.package = 0

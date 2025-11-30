@@ -55,7 +55,6 @@ class Package:
         else:
             self.__y = y
 
-
     @property
     def direction(self) -> str:
         return self.__direction

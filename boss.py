@@ -6,13 +6,6 @@ class Boss:
             information needed. The boss will appear on screen every time a
             package falls to punish Mario or Luigi, and after each break, to
             make them come back to work.
-            :param x: int. The x coordinate of the boss
-            :param y: int. The y coordinate of the boss
-            :param img : The index of the image bank
-            :param u :  Coordinate x of the image in the image bank
-            :param v : Coordinate y of the image in the image bank
-            :param width : The width of the boss
-            :param height : The height of the boss
         """
         #self.x = x
         #self.y = y

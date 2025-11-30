@@ -4,6 +4,8 @@ from boss import Boss
 from belt import Belt
 from package import Package
 from truck import Truck
+from collisions import Collisions
+from score import Score
 
 
 class Board:
@@ -27,7 +29,9 @@ class Board:
         self.packages = []
         self.truck_positions = [(24,56), (40,56), (24,48), (40,48), (24,40),
                                 (40,40),(24, 32), (40,32)]
-        self.truck_package_counter = 0
+        #self.truck_package_counter = 0
+        self.score = Score()
+        self.collisions = Collisions()
 
         #self.belts_y = [88, 72, 56, 40, 24]
         self.belts = [Belt(88, "left", 2),
@@ -80,12 +84,13 @@ class Board:
 
         self.mario.update()
         self.luigi.update()
-        #self.package.update()
         for package in self.packages:
             if not package.finish:
-                package.update(self.truck_package_counter)
+                package.update(self.truck.package)
 
-        self.collisions()
+        #self.collisions()
+        self.collisions.collision(self.packages, self.mario, self.luigi, self.boss,
+               self.truck, self.score)
 
         #if pyxel.frame_count % 400 == 0:
             #for i in range(3):
@@ -117,6 +122,7 @@ class Board:
             if pkg.belt == 0 and 180 <= pkg.x <= 186:
                 if self.collide(pkg, self.mario):
                     pkg.put_belt(0, 156, 82)
+                    score.pkg_delivered()
                 else:
                     pkg.fall_package()
                     self.mario.fall_package()
@@ -125,6 +131,7 @@ class Board:
             elif pkg.belt == 0 and pkg.x <= 80:
                 if self.collide(pkg, self.luigi):
                     pkg.put_belt(1, 84,66)
+                    score.pkg_delivered()
                 else:
                     pkg.fall_package()
                     self.luigi.fall_package()
@@ -133,6 +140,7 @@ class Board:
             elif pkg.belt == 1 and pkg.x >= 162:
                 if self.collide(pkg, self.mario):
                     pkg.put_belt(2, 156, 50)
+                    score.pkg_delivered()
                 else:
                     pkg.fall_package()
                     self.mario.fall_package()
@@ -141,6 +149,7 @@ class Board:
             elif pkg.belt == 2 and pkg.x <= 80:
                 if self.collide(pkg, self.luigi):
                     pkg.put_belt(3, 84, 34)
+                    score.pkg_delivered()
                 else:
                     pkg.fall_package()
                     self.luigi.fall_package()
@@ -149,6 +158,7 @@ class Board:
             elif pkg.belt == 3 and pkg.x >= 162:
                 if self.collide(pkg, self.mario):
                     pkg.put_belt(4, 156, 18)
+                    score.pkg_delivered()
                 else:
                     pkg.fall_package()
                     self.mario.fall_package()
@@ -158,6 +168,7 @@ class Board:
                 # colisione con luigi en la ultima plataforma, se tiene que
                 # ir a una parte del truck, se tiene que mejorar o simplificar
                 if self.collide(pkg, self.luigi):
+                    score.pkg_delivered()
                     if self.truck_package_counter == 0:
                         pkg.x, pkg.y = 24, 56
                     elif self.truck_package_counter == 1:
@@ -209,10 +220,10 @@ class Board:
         for pkg in self.packages:
             pkg.draw()
 
-
         pyxel.bltm(120,0,0,120, 0,16,128)
 
         # Text in screen without having to do the letters
         pyxel.text(40,5, "Easy", 15)
+        pyxel.text(244, 7, str(self.score), 0)
 
 
