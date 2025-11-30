@@ -175,7 +175,9 @@ class Board:
                     elif self.truck_package_counter == 7:
                         pkg.x, pkg.y = 40, 32
                     pkg.finish = True
-                    pkg.belt = -1
+                    pkg.belt = -1 #Para que cuando llegue al ultimo belt,
+                    # se quede en el camnion porque sino desaparece del
+                    # camnion y aparece como si se hubiese caido
 
                     pkg.finish = True
                     self.truck_package_counter += 1
