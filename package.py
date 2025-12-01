@@ -115,16 +115,12 @@ class Package:
             #pyxel.blt(40, 16, 0, 48, 80, 16, 8)
 
     def update(self):
-        if self.finish or self.fall:
-            return
-
-        if self.at_truck:
-            return
-        else:
+        if not self.fall and not self.at_truck:
             if time.time() - self.time > 0.4:
                 self.move()
                 self.time = time.time()
                 self.moves += 1
+
 
 
     def put_belt(self, belt, new_x, new_y):
@@ -177,7 +173,15 @@ class Package:
                 else:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         elif self.fall:
-            pyxel.blt(self.x,110, 0, 0, 120,16, 8)
+
+            if self.side == "right":
+                if self.belt == 0:
+                    pyxel.blt(209,112, 0, 0, 120,16, 8)
+                else:
+                    pyxel.blt(160, 112, 0, 0, 120, 16, 8)
+            else:
+                pyxel.blt(80, 112, 0, 0, 120, 16, 8)
+
 
 
 

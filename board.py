@@ -81,17 +81,14 @@ class Board:
         self.luigi.update()
         self.truck.update()
         for package in self.packages:
-            if not package.finish:
-                package.update()
+            package.update()
+            if package.fall:
+                self.packages.remove(package)
 
         self.collisions.collision(self.packages, self.mario, self.luigi, self.boss,
                self.truck, self.score)
 
-        #if pyxel.frame_count % 400 == 0:
-            #for i in range(3):
-                #if not self.packages or self.packages[-1].x < 200:
-                    #self.packages.append(Package(self.belts))
-        if len(self.packages)== 0: #If the list is empty, add one package
+        if len(self.packages) == 0: #If the list is empty, add one package
             self.packages.append(Package(self.belts))
         else:
             if len(self.packages) % 2 == 0: #If the number of package is
