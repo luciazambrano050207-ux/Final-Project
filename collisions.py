@@ -12,11 +12,11 @@ class Collisions:
     def collision(self, packages, mario, luigi, boss, truck, score):
         for pkg in packages:
             if not pkg.fall:
-
                 if pkg.belt == 0 and 180 <= pkg.x <= 186:
                     if self.collide(pkg, mario):
                         pkg.put_belt(0, 156, 82)
                         score.pkg_delivered()
+
                     else:
                         pkg.fall_package()
                         mario.fall_package()
@@ -26,6 +26,7 @@ class Collisions:
                     if self.collide(pkg, luigi):
                         pkg.put_belt(1, 84,66)
                         score.pkg_delivered()
+
                     else:
                         pkg.fall_package()
                         luigi.fall_package()
@@ -35,6 +36,7 @@ class Collisions:
                     if self.collide(pkg, mario):
                         pkg.put_belt(2, 156, 50)
                         score.pkg_delivered()
+
                     else:
                         pkg.fall_package()
                         mario.fall_package()
