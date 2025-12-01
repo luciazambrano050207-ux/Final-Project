@@ -48,7 +48,7 @@ class Boss:
             pyxel.blt(8, 104, 0, 48, 16, 16, 16)
 
 
-    #@property
+    #@property:
     #def x(self) -> int:
         #return self.__x
 

@@ -128,7 +128,7 @@ class Package:
         if self.finish or self.fall:
             return
 
-        if self.go_truck:
+        if self.fall_truck:
             self.fall_at_truck(pkgs)
         elif self.fall_truck:
             self.fall_at_truck(pkgs)
