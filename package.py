@@ -20,6 +20,8 @@ class Package:
         self.time = time.time()
         self.side = "right"
         self.fall = False
+        self.fall_frame = None
+
         self.at_truck = False
         self.finish = False
         self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
@@ -133,9 +135,9 @@ class Package:
     def fall_package(self):
         """ This method changes the attribute fall of the package when it
         falls. """
-        self.fall = True
-
-    #def end_belt(self):
+        if not self.fall:
+            self.fall = True
+            self.fall_frame = pyxel.frame_count
         #""" This method returns True if the package is at the end of the
         #belt and False otherwise. """
         #if self.belt < 0:
@@ -173,18 +175,17 @@ class Package:
                 else:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         elif self.fall:
+            if pyxel.frame_count - self.fall_frame < 120:
 
-            if self.side == "right":
-                if self.belt == 0:
-                    pyxel.blt(209,112, 0, 0, 120,16, 8)
+                if self.side == "right":
+                    if self.belt == 0:
+                        pyxel.blt(209,112, 0, 0, 120,16, 8)
+                    else:
+                        pyxel.blt(160, 112, 0, 0, 120, 16, 8)
                 else:
-                    pyxel.blt(160, 112, 0, 0, 120, 16, 8)
+                    pyxel.blt(80, 112, 0, 0, 120, 16, 8)
             else:
-                pyxel.blt(80, 112, 0, 0, 120, 16, 8)
-
-
-
-
+                self.finish = True
     #@property
     #def img(self):
         #return self.__img
