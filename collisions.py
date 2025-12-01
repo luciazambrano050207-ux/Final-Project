@@ -93,5 +93,5 @@ class Collisions:
                         #pkg.finish = True
                     else:
                         pkg.fall_package()
-                        self.luigi.fall_package()
+                        luigi.fall_package()
                         boss.fall_luigi()
