@@ -64,9 +64,6 @@ class Collisions:
                     if self.collide(pkg, luigi):
                         score.pkg_delivered()
                         pkg.at_truck = True
-                        #pkg.belt = -1 #Para que cuando llegue al ultimo belt,
-                        # se quede en el camnion porque sino desaparece del
-                        # camnion y aparece como si se hubiese caido
 
                         #pkg.finish = True
                         truck.add_package()
