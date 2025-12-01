@@ -143,25 +143,12 @@ class Character:
     def draw(self):
         if not self.fall:
             if self.side == "right":
-                if self.motion == "picking":
-                    pyxel.blt(self.x, self.y, 0, 32,0, 16, 16)
-                elif self.motion == "leaving":
-                    pyxel.blt(self.x, self.y, 0, 32,16, 16, 16)
-                else:
-                    if self.floor == 0 and self.motion == "first_pick":
+                    if self.floor == 0:
                         pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
                     else:
                         pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
             else:
-                if self.motion == "leaving_truck":
-                    pyxel.blt(self.x, self.y, 0, 16, 32, 16, 16)
-                elif self.motion == "leaving":
-                    pyxel.blt(self.x, self.y, 0, 16, 16, 16, 16)
-                elif self.motion == "picking":
-                    pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
-                else:
-                    pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
-
+                pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
         else:
             if self.side == "right":
                 pyxel.blt(208, 56, 0, 32, 48, 16, 16)
