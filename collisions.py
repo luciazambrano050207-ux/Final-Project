@@ -63,15 +63,15 @@ class Collisions:
                 elif pkg.belt == 4 and pkg.x <= 80:
                     if self.collide(pkg, luigi):
                         score.pkg_delivered()
-                        pkg.go_truck = True
-                        pkg.belt = -1 #Para que cuando llegue al ultimo belt,
+                        pkg.at_truck = True
+                        #pkg.belt = -1 #Para que cuando llegue al ultimo belt,
                         # se quede en el camnion porque sino desaparece del
                         # camnion y aparece como si se hubiese caido
 
-                        pkg.finish = True
+                        #pkg.finish = True
                         truck.add_package()
-                        if truck.package == 8:
-                            truck.visible = False
+                        #if truck.package == 8:
+                            #truck.visible = False
 
                         #pkg.go_truck = True
                         #pkg.finish = True

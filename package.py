@@ -162,7 +162,7 @@ class Package:
 
     def draw(self):
         self.change_sides()
-        if not self.fall and not self.fall_truck:
+        if not self.fall and not self.at_truck:
             if self.side == "right":
                 if self.belt == 0:
                     pyxel.blt(self.x, self.y, 0, 32,64,16,8)
