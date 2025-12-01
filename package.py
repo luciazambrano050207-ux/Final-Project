@@ -20,12 +20,11 @@ class Package:
         self.time = time.time()
         self.side = "right"
         self.fall = False
-        self.fall_truck = False
+        self.at_truck = False
         self.finish = False
         self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
         # paquete
         #self.on_belt = False
-        #self.at_truck = False
         #self.visible = True
 
     @property
@@ -120,9 +119,10 @@ class Package:
             return
 
         if self.fall_truck:
-            self.fall_at_truck(pkgs)
+            #self.fall_at_truck(pkgs)
+            return
         else:
-            if time.time() - self.time > 1:
+            if time.time() - self.time > 0.4:
                 self.move()
                 self.time = time.time()
                 self.moves += 1
@@ -162,7 +162,7 @@ class Package:
 
     def draw(self):
         self.change_sides()
-        if not self.fall:
+        if not self.fall and not self.fall_truck:
             if self.side == "right":
                 if self.belt == 0:
                     pyxel.blt(self.x, self.y, 0, 32,64,16,8)
@@ -177,7 +177,7 @@ class Package:
                     pyxel.blt(self.x, self.y, 0, 48, 72, 16, 8)
                 else:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
-        else:
+        elif self.fall:
             pyxel.blt(self.x,110, 0, 0, 120,16, 8)
 
 

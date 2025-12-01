@@ -58,28 +58,10 @@ class Collisions:
                         mario.fall_package()
                         boss.fall_mario()
 
-                elif pkg.belt == 4 and pkg.x <= 80: #esto es para ver que cuando
-                    # colisione con luigi en la ultima plataforma, se tiene que
-                    # ir a una parte del truck, se tiene que mejorar o simplificar
+                elif pkg.belt == 4 and pkg.x <= 80:
                     if self.collide(pkg, luigi):
                         score.pkg_delivered()
-                        if truck.package == 0:
-                            pkg.x, pkg.y = 24, 56
-                        elif truck.package == 1:
-                            pkg.x, pkg.y = 40, 56
-                        elif truck.package == 2:
-                            pkg.x, pkg.y = 24, 48
-                        elif truck.package == 3:
-                            pkg.x, pkg.y = 40, 48
-                        elif truck.package == 4:
-                            pkg.x, pkg.y = 24, 40
-                        elif truck.package == 5:
-                            pkg.x, pkg.y = 40, 40
-                        elif truck.package == 6:
-                            pkg.x, pkg.y = 24, 32
-                        elif truck.package == 7:
-                            pkg.x, pkg.y = 40, 32
-                        pkg.finish = True
+                        pkg.go_truck = True
                         pkg.belt = -1 #Para que cuando llegue al ultimo belt,
                         # se quede en el camnion porque sino desaparece del
                         # camnion y aparece como si se hubiese caido

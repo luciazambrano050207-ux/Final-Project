@@ -79,6 +79,7 @@ class Board:
 
         self.mario.update()
         self.luigi.update()
+        self.truck.update()
         for package in self.packages:
             if not package.finish:
                 package.update(self.truck.package)
