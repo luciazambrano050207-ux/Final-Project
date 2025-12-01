@@ -114,12 +114,11 @@ class Package:
         #else:
             #pyxel.blt(40, 16, 0, 48, 80, 16, 8)
 
-    def update(self, pkgs):
+    def update(self):
         if self.finish or self.fall:
             return
 
         if self.at_truck:
-            #self.fall_at_truck(pkgs)
             return
         else:
             if time.time() - self.time > 0.4:

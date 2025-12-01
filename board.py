@@ -82,7 +82,7 @@ class Board:
         self.truck.update()
         for package in self.packages:
             if not package.finish:
-                package.update(self.truck.package)
+                package.update()
 
         self.collisions.collision(self.packages, self.mario, self.luigi, self.boss,
                self.truck, self.score)
