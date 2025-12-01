@@ -3,7 +3,7 @@ class Truck:
     """ This class represents the truck. """
     def __init__(self):
         """ This method creates a Truck object. """
-        #self.x = 10
+        self.x = 8
         #self.y = 30
         #self.package = 0
         #self.image =
@@ -43,6 +43,29 @@ class Truck:
         #self.visible = True
         #self.package = 0
 
+    def move(self):
+        self.x -= 1
+
+    def update(self):
+        if self.package == 8:
+            self.move()
+
     def draw(self):
-        if self.package < 8:
-            pyxel.blt(8, 42, 0, 32, 96, 48, 32)
+        if self.package == 0:
+            pyxel.blt(self.x, 42, 0, 32, 96, 48, 32)
+        elif self.package == 1:
+            pyxel.blt(self.x, 42, 0, 88, 40, 48, 48)
+        elif self.package == 2:
+            pyxel.blt(self.x, 42, 0, 88, 96, 48, 48)
+        elif self.package == 3:
+            pyxel.blt(self.x, 42, 0, 88, 152, 48, 48)
+        elif self.package == 4:
+            pyxel.blt(self.x, 42, 0, 88, 208, 48, 48)
+        elif self.package == 5:
+            pyxel.blt(self.x, 42, 0, 144, 40, 48, 48)
+        elif self.package == 6:
+            pyxel.blt(self.x, 42, 0, 144, 96, 48, 48)
+        elif self.package == 7:
+            pyxel.blt(self.x, 42, 0, 144, 152, 48, 48)
+        elif self.package == 8 and self.x > 0:
+            pyxel.blt(self.x, 42, 0, 144, 208, 48, 48)
