@@ -35,7 +35,7 @@ class Truck:
     def add_package(self):
         self.package += 1
 
-    #def disappear(self):
+    #pydef disappear(self):
         #if self.package == 8:
             #self.visible = False
 
