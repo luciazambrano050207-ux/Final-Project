@@ -32,6 +32,7 @@ class Character:
         self.down = down
         self.side = side
         self.fall = False
+        self.motion = "normal"
 
 
     @property

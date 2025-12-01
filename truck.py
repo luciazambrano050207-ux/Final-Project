@@ -30,7 +30,7 @@ class Truck:
         #if not isinstance(visible, bool):
             #raise TypeError("visible must be a boolean")
         #else:
-            #self.__visible = visible
+            #self.__visible = visibles
 
     def add_package(self):
         self.package += 1

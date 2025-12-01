@@ -27,12 +27,8 @@ class Board:
         self.boss = Boss()
         self.truck = Truck()
         self.packages = []
-        self.truck_positions = [(24,56), (40,56), (24,48), (40,48), (24,40),
-                                (40,40),(24, 32), (40,32)]
         self.score = Score()
         self.collisions = Collisions()
-
-        #self.belts_y = [88, 72, 56, 40, 24]
         self.belts = [Belt(88, "left", 2),
                       Belt(72, "right", 2),
                       Belt(56,"left", 2),
