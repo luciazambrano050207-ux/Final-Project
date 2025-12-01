@@ -126,4 +126,4 @@ class Board:
 
             # Text in screen without having to do the letters
             pyxel.text(40,5, "Easy", 15)
-            pyxel.text(244, 7, str(self.score), 0)qa
+            pyxel.text(244, 7, str(self.score), 0)
