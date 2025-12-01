@@ -125,6 +125,7 @@ class Board:
                 pkg.draw()
 
             pyxel.bltm(120,0,0,120, 0,16,128)
+            pyxel.bltm(0, 0, 0, 0, 0, 8,72)
 
             # Text in screen without having to do the letters
             pyxel.text(40,5, "Easy", 15)
