@@ -38,15 +38,12 @@ class Boss:
         self.punish = True
 
     def draw(self):
-        if self.lives == 0:
-            pyxel.bltm(0, 0, 2, 0, 0, 256, 128)
-        else:
-            if self.lives >= 1:
-                pyxel.blt(152, 0, 0, 0, 232, 16, 16)
-            if self.lives >= 2:
-                pyxel.blt(168, 0, 0, 0, 232, 16, 16)
-            if self.lives == 3:
-                pyxel.blt(184, 0, 0, 0, 232, 16, 16)
+        if self.lives >= 1:
+            pyxel.blt(152, 0, 0, 0, 232, 16, 16)
+        if self.lives >= 2:
+            pyxel.blt(168, 0, 0, 0, 232, 16, 16)
+        if self.lives == 3:
+            pyxel.blt(184, 0, 0, 0, 232, 16, 16)
 
         if self.punish:
             if self.side == "right":

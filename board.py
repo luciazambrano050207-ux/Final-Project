@@ -108,22 +108,23 @@ class Board:
         """This is a pyxel method that gets executed in every iteration of the
         game (every frame). Here is all the code to draw the sprites of the
         game. """
-        # Erasing the previous screen
-        pyxel.cls(0)
-        pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
+        if self.boss.lives == 0:
+            pyxel.bltm(0, 0, 2, 0, 0, 256, 128)
+        else:
+            # Erasing the previous screen
+            pyxel.cls(0)
+            pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
 
-        # Drawing the characters and packages
-        self.mario.draw()
-        self.luigi.draw()
-        self.boss.draw()
-        self.truck.draw()
-        for pkg in self.packages:
-            pkg.draw()
+            # Drawing the characters and packages
+            self.mario.draw()
+            self.luigi.draw()
+            self.boss.draw()
+            self.truck.draw()
+            for pkg in self.packages:
+                pkg.draw()
 
-        pyxel.bltm(120,0,0,120, 0,16,128)
+            pyxel.bltm(120,0,0,120, 0,16,128)
 
-        # Text in screen without having to do the letters
-        pyxel.text(40,5, "Easy", 15)
-        pyxel.text(244, 7, str(self.score), 0)
-
-
+            # Text in screen without having to do the letters
+            pyxel.text(40,5, "Easy", 15)
+            pyxel.text(244, 7, str(self.score), 0)
