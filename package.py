@@ -20,7 +20,6 @@ class Package:
         self.time = time.time()
         self.side = "right"
         self.fall = False
-        self.go_truck = False
         self.fall_truck = False
         self.finish = False
         self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
@@ -95,14 +94,6 @@ class Package:
         self.y += self.D
 
 
-    def start_fall_at_truck(self, pkgs):
-        self.y = 16
-        if pkgs % 2 == 1:
-            self.x = 24
-        else:
-            self.x = 40
-        self.go_truck = False
-        self.fall_truck = True
 
     def fall_at_truck(self, pkgs):
         if pkgs == 0 or pkgs == 1:
@@ -129,8 +120,6 @@ class Package:
             return
 
         if self.fall_truck:
-            self.fall_at_truck(pkgs)
-        elif self.fall_truck:
             self.fall_at_truck(pkgs)
         else:
             if time.time() - self.time > 1:

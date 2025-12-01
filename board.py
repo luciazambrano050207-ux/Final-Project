@@ -29,7 +29,6 @@ class Board:
         self.packages = []
         self.truck_positions = [(24,56), (40,56), (24,48), (40,48), (24,40),
                                 (40,40),(24, 32), (40,32)]
-        #self.truck_package_counter = 0
         self.score = Score()
         self.collisions = Collisions()
 
@@ -88,7 +87,6 @@ class Board:
             if not package.finish:
                 package.update(self.truck.package)
 
-        #self.collisions()
         self.collisions.collision(self.packages, self.mario, self.luigi, self.boss,
                self.truck, self.score)
 

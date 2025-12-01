@@ -14,7 +14,7 @@ class Boss:
         #self.v = v
         #self.width = width
         #self.height = height
-        self.pkg_fall = 0
+        self.lives = 3
         #self.visible = False
         self.punish = False
         self.finish_break = False
@@ -29,23 +29,31 @@ class Boss:
 
     def fall_mario(self):
         self.side = "right"
-        self.pkg_fall += 1
+        self.lives -= 1
         self.punish = True
 
     def fall_luigi(self):
         self.side = "left"
-        self.pkg_fall += 1
+        self.lives -= 1
         self.punish = True
 
     def draw(self):
+        if self.lives >= 1:
+            pyxel.blt(152, 0, 0, 0, 232, 16, 16)
+        if self.lives >= 2:
+            pyxel.blt(168, 0, 0, 0, 232, 16, 16)
+        if self.lives == 3:
+            pyxel.blt(184, 0, 0, 0, 232, 16, 16)
+
         if self.punish:
             if self.side == "right":
                 pyxel.blt(224, 56, 0, 48, 48, 16, 16)
             else:
-                pyxel.blt(8, 104, 0, 48, 16, 16, 16)
+                pyxel.blt(14, 104, 0, 48, 16, 16, 16)
+
         if self.finish_break:
             pyxel.blt(224, 56, 0, 48, 48, 16, 16)
-            pyxel.blt(8, 104, 0, 48, 16, 16, 16)
+            pyxel.blt(12, 104, 0, 48, 16, 16, 16)
 
 
     #@property:

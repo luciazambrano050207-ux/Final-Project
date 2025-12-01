@@ -150,4 +150,6 @@ class Character:
                 pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
         else:
             if self.side == "right":
-                pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
+                pyxel.blt(208, 56, 0, 32, 48, 16, 16)
+            else:
+                pyxel.blt(28, 104, 0, 16, 48, 16, 16)
