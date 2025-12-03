@@ -34,6 +34,9 @@ class Character:
         self.punish = False
         self.punish_frame = 0
         self.motion = "normal"
+        #self.pause = False
+        #self.pause_x = 0
+        #self.pause_y = 0
 
 
     @property
@@ -138,32 +141,64 @@ class Character:
 
     def check_package(self, packages):
 
-        self.motion = "normal"
-        for pkg in packages:
-            if (self.side =="right" and pkg.belt == 0 and abs(pkg.x -self.x)
-                    < 30):
-                self.motion = "catch1"
-            elif (self.side == "right" and pkg.belt > 0 and abs(pkg.x- self.x)
-                  <20):
-                self.motion = "leave"
-            if self.side == "left" and abs(pkg.x -self.x) < 20:
-                self.motion = "leave"
-    def update(self, packages):
-        self.check_package(packages)
-        if pyxel.btnp(self.up):
-            self.move_up()
-        if pyxel.btnp(self.down):
-            self.move_down()
+        if self.side == "right":
+            for pkg in packages:
+                if pkg.belt == 0:
+                    self.motion = "catch1"
+                    if pkg.belt == 0 and abs(pkg.x -self.x) < 30:
+                        self.motion = "normal"
+                else:
+                    self.motion = "normal"
+                    if pkg.belt > 0 and abs(pkg.x -self.x) < 30:
+                        self.motion = "leave"
+        else:
+            self.motion = "normal"
+            for pkg in packages:
 
-        if self.punish and pyxel.frame_count - self.punish_frame >= 60:
-            self.punish = False
+                if pkg.belt == 4 and abs(pkg.x -self.x) < 30:
+                    self.motion = "catch1"
+
+                elif pkg.belt < 4 and abs(pkg.x - self.x) < 20:
+                    self.motion = "leave"
 
 
-    def draw(self):
-        if not self.punish:
+    #def save_positions(self):
+        #self.pause = True
+        #self.pause_x = self.x
+        #self.pause_y = self.y
+
+    #def restore_positions(self):
+        #self.pause = False
+        #self.x = self.pause_x
+        #self.y = self.pause_y
+
+    def update(self, packages, pause):
+        if not pause:
+            self.check_package(packages)
+            if pyxel.btnp(self.up):
+                self.move_up()
+            if pyxel.btnp(self.down):
+                self.move_down()
+
+            if self.punish and pyxel.frame_count - self.punish_frame >= 60:
+                self.punish = False
+
+
+    def draw(self, pause, pause_frame):
+        if pause and pyxel.frame_count - pause_frame < 270:
+            if self.side == "right":
+                pyxel.blt(200, 56, 0, 64, 16, 16, 16)
+            else:
+                pyxel.blt(48, 80, 0, 64, 0, 16, 16)
+        elif pause or self.punish:
+            if self.side == "right":
+                pyxel.blt(208, 56, 0, 32, 48, 16, 16)
+            else:
+                pyxel.blt(28, 104, 0, 16, 48, 16, 16)
+        else:
             if self.side == "right":
                 if self.motion == "normal":
-                    pyxel.blt(self.x, self.y, 0, 32, , 16, 16)
+                    pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
                 elif self.motion == "leave":
                     pyxel.blt(self.x, self.y, 0, 32, 16, 16, 16)
                 elif self.motion == "catch1":
@@ -175,10 +210,3 @@ class Character:
                     pyxel.blt(self.x, self.y, 0, 16, 16, 16, 16)
                 elif self.motion == "catch1":
                     pyxel.blt(self.x, self.y, 0, 16, 32, 16, 16)
-
-
-        else:
-            if self.side == "right":
-                pyxel.blt(208, 56, 0, 32, 48, 16, 16)
-            else:
-                pyxel.blt(28, 104, 0, 16, 48, 16, 16)

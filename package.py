@@ -21,13 +21,11 @@ class Package:
         self.side = "right"
         self.on_belt = True
         self.fall = False
-        #self.fall_frame = None
         self.at_truck = False
         self.finish = False
         self.fall_frame = 0
         self.moves = 0 #contador de cuanto se mueve hasta que aparezca otro
         # paquete
-        #self.visible = True
 
     @property
     def x(self) -> int:
@@ -89,7 +87,6 @@ class Package:
             self.x -= self.D
         else:
             self.x += self.D
-
 
     def put_belt(self, belt, new_x, new_y):
         self.belt = belt

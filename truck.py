@@ -39,15 +39,6 @@ class Truck:
     def add_package(self):
         self.package += 1
 
-
-    #def disappear(self):
-        #if self.package == 8:
-            #self.visible = False
-
-    #def reappear(self):
-        #self.visible = True
-        #self.package = 0
-
     def move(self):
         self.x -= 0.4
 
