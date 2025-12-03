@@ -124,6 +124,7 @@ class Character:
             self.y -= self.D
             self.floor += 1
 
+
     def move_down(self):
         """ This method moves the character down, if it is not in the
         minimum floor. """

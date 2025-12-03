@@ -1,4 +1,5 @@
 import pyxel
+
 class Truck:
     """ This class represents the truck. """
     def __init__(self):

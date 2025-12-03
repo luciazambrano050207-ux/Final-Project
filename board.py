@@ -102,6 +102,7 @@ class Board:
                 if self.packages[len(self.packages) - 1].moves >= 8:
                     self.packages.append(Package(self.belts))
 
+
     def draw(self):
         """This is a pyxel method that gets executed in every iteration of the
         game (every frame). Here is all the code to draw the sprites of the

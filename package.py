@@ -118,7 +118,7 @@ class Package:
 
     def update(self):
         if not self.fall and not self.at_truck:
-            if time.time() - self.time > 0.4:
+            if time.time() - self.time > 0.7:
                 self.move()
                 self.time = time.time()
                 self.moves += 1
@@ -176,7 +176,6 @@ class Package:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         elif self.fall:
             if pyxel.frame_count - self.fall_frame < 120:
-
                 if self.side == "right":
                     if self.belt == 0:
                         pyxel.blt(209,112, 0, 0, 120,16, 8)
