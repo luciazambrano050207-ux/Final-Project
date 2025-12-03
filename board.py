@@ -36,7 +36,7 @@ class Board:
                       Belt(24, "left", 2)]
 
 
-        pyxel.init(self.width, self.height, title="Mario")
+        pyxel.init(self.width, self.height, title="Mario Bros Proyect")
 
         pyxel.load("my_resource.pyxres")
 
@@ -126,5 +126,5 @@ class Board:
             pyxel.bltm(0, 0, 0, 0, 0, 8,72)
 
             # Text in screen without having to do the letters
-            pyxel.text(40,5, "Easy", 15)
+            pyxel.text(240,35, "Easy", 0)
             pyxel.text(244, 7, str(self.score), 0)

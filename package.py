@@ -118,7 +118,7 @@ class Package:
 
     def update(self):
         if not self.fall and not self.at_truck:
-            if time.time() - self.time > 0.7:
+            if time.time() - self.time > 1:
                 self.move()
                 self.time = time.time()
                 self.moves += 1
