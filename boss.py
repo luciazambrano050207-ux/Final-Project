@@ -14,10 +14,12 @@ class Boss:
         #self.v = v
         #self.width = width
         #self.height = height
+        self.side = ""
         self.lives = 3
         #self.visible = False
         self.punish = False
         self.finish_break = False
+        self.punish_frame = 0
 
 
     #def disappear(self):
@@ -31,11 +33,24 @@ class Boss:
         self.side = "right"
         self.lives -= 1
         self.punish = True
+        self.punish_frame = pyxel.frame_count
 
     def fall_luigi(self):
         self.side = "left"
         self.lives -= 1
         self.punish = True
+        self.punish_frame = pyxel.frame_count
+
+    def add_life(self, truck):
+        if truck.deliveries == 3:
+            if self.lives < 3:
+                self.lives += 1
+            truck.deliveries = 0
+
+    def update(self, truck):
+        self.add_life(truck)
+        if self.punish and pyxel.frame_count - self.punish_frame >= 60:
+            self.punish = False
 
     def draw(self):
         if self.lives >= 1:

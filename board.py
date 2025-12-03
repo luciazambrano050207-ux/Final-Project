@@ -77,16 +77,21 @@ class Board:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
 
-        self.mario.update()
-        self.luigi.update()
-        self.truck.update()
-        for package in self.packages:
-            package.update()
-            if package.fall:
-                self.packages.remove(package)
+        self.mario.update(self.packages)
+        self.luigi.update(self.packages)
+        self.truck.update(self.score)
+        self.boss.update(self.truck)
 
-        self.collisions.collision(self.packages, self.mario, self.luigi, self.boss,
-               self.truck, self.score)
+        if not self.boss.punish:
+            for package in self.packages:
+                package.update()
+                if package.finish:
+                    self.packages.remove(package)
+        self.mario.check_package(self.packages)
+        self.luigi.check_package(self.packages)
+
+        self.collisions.collision(self.packages, self.mario, self.luigi,
+                                  self.boss, self.truck, self.score)
 
         if len(self.packages) == 0: #If the list is empty, add one package
             self.packages.append(Package(self.belts))

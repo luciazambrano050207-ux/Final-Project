@@ -19,14 +19,14 @@ class Package:
         self.direction = "left"
         self.time = time.time()
         self.side = "right"
+        self.on_belt = True
         self.fall = False
-        self.fall_frame = None
-
+        #self.fall_frame = None
         self.at_truck = False
         self.finish = False
-        self.moves= 0 #contador de cuanto se mueve hasta que aparezca otro
+        self.fall_frame = 0
+        self.moves = 0 #contador de cuanto se mueve hasta que aparezca otro
         # paquete
-        #self.on_belt = False
         #self.visible = True
 
     @property
@@ -38,7 +38,7 @@ class Package:
         if not isinstance(x, int):
             raise TypeError("The x must be an int")
         if x < 0:
-            x = 0
+            raise ValueError("The x must be >= 0")
         else:
             self.__x = x
 
@@ -90,40 +90,6 @@ class Package:
         else:
             self.x += self.D
 
-    def move_down(self):
-        """ This method moves down the package a distance D. """
-        self.y += self.D
-
-
-
-    def fall_at_truck(self, pkgs):
-        if pkgs == 0 or pkgs == 1:
-            for _ in range(5):
-                self.move_down()
-        elif pkgs == 2 or pkgs == 3:
-            for _ in range(7):
-                self.move_down()
-        elif pkgs == 4 or pkgs == 5:
-            for _ in range(9):
-                self.move_down()
-        elif pkgs == 6 or pkgs == 7:
-            for _ in range(11):
-                self.move_down()
-        self.fall_truck = False
-
-        #if pkgs % 2 == 1:
-            #pyxel.blt(24, 16, 0, 48, 80, 16, 8)
-        #else:
-            #pyxel.blt(40, 16, 0, 48, 80, 16, 8)
-
-    def update(self):
-        if not self.fall and not self.at_truck:
-            if time.time() - self.time > 1:
-                self.move()
-                self.time = time.time()
-                self.moves += 1
-
-
 
     def put_belt(self, belt, new_x, new_y):
         self.belt = belt
@@ -135,9 +101,8 @@ class Package:
     def fall_package(self):
         """ This method changes the attribute fall of the package when it
         falls. """
-        if not self.fall:
-            self.fall = True
-            self.fall_frame = pyxel.frame_count
+        self.fall = True
+        self.fall_frame = pyxel.frame_count
         #""" This method returns True if the package is at the end of the
         #belt and False otherwise. """
         #if self.belt < 0:
@@ -155,7 +120,15 @@ class Package:
         if self.x >= 128:
             self.side = "right"
 
-
+    def update(self):
+        if not self.fall and not self.at_truck:
+            if time.time() - self.time > 0.4:
+                self.move()
+                self.time = time.time()
+                self.moves += 1
+        elif self.fall:
+            if pyxel.frame_count - self.fall_frame >= 30:
+                self.finish = True
 
     def draw(self):
         self.change_sides()
@@ -175,16 +148,14 @@ class Package:
                 else:
                     pyxel.blt(self.x, self.y, 0, 48, 80, 16, 8)
         elif self.fall:
-            if pyxel.frame_count - self.fall_frame < 120:
-                if self.side == "right":
-                    if self.belt == 0:
-                        pyxel.blt(209,112, 0, 0, 120,16, 8)
-                    else:
-                        pyxel.blt(160, 112, 0, 0, 120, 16, 8)
+            if self.side == "right":
+                if self.belt == 0:
+                    pyxel.blt(209,112, 0, 0, 120,16, 8)
                 else:
-                    pyxel.blt(80, 112, 0, 0, 120, 16, 8)
+                    pyxel.blt(160, 112, 0, 0, 120, 16, 8)
             else:
-                self.finish = True
+                pyxel.blt(80, 112, 0, 0, 120, 16, 8)
+
     #@property
     #def img(self):
         #return self.__img

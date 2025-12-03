@@ -13,9 +13,12 @@ class Collisions:
         for pkg in packages:
             if not pkg.fall and not pkg.at_truck:
                 if pkg.belt == 0 and 180 <= pkg.x <= 186:
+                    mario.motion = "catch1"
                     if self.collide(pkg, mario):
+                        mario.motion = "leave"
                         pkg.put_belt(0, 156, 82)
                         score.pkg_delivered()
+                        mario.motion = "normal"
 
                     else:
                         pkg.fall_package()
@@ -23,9 +26,12 @@ class Collisions:
                         boss.fall_mario()
 
                 elif pkg.belt == 0 and pkg.x <= 80:
+                    #luigi.motion = "leave"
                     if self.collide(pkg, luigi):
+                        luigi.motion = "leave"
                         pkg.put_belt(1, 84,66)
                         score.pkg_delivered()
+                        luigi.motion = "normal"
 
                     else:
                         pkg.fall_package()
@@ -33,9 +39,12 @@ class Collisions:
                         boss.fall_luigi()
 
                 elif pkg.belt == 1 and pkg.x >= 162:
+                    #mario.motion ="leave"
                     if self.collide(pkg, mario):
+                        mario.motion = "leave"
                         pkg.put_belt(2, 156, 50)
                         score.pkg_delivered()
+                        mario.motion = "normal"
 
                     else:
                         pkg.fall_package()
@@ -43,18 +52,25 @@ class Collisions:
                         boss.fall_mario()
 
                 elif pkg.belt == 2 and pkg.x <= 80:
+                    #luigi.motion = "leave"
                     if self.collide(pkg, luigi):
+                        luigi.motion = "leave"
                         pkg.put_belt(3, 84, 34)
                         score.pkg_delivered()
+                        luigi.motion = "normal"
                     else:
                         pkg.fall_package()
                         luigi.fall_package()
                         boss.fall_luigi()
 
                 elif pkg.belt == 3 and pkg.x >= 162:
+                    #mario.motion ="leave"
                     if self.collide(pkg, mario):
+                        mario.motion = "leave"
                         pkg.put_belt(4, 156, 18)
                         score.pkg_delivered()
+                        mario.motion = "normal"
+
                     else:
                         pkg.fall_package()
                         mario.fall_package()
@@ -62,8 +78,11 @@ class Collisions:
 
                 elif pkg.belt == 4 and pkg.x <= 80:
                     if self.collide(pkg, luigi):
+                        luigi.motion = "leave"
                         score.pkg_delivered()
                         pkg.at_truck = True
+                        luigi.motion = "normal"
+
 
                         #pkg.finish = True
                         truck.add_package()

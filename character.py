@@ -31,7 +31,8 @@ class Character:
         self.up = up
         self.down = down
         self.side = side
-        self.fall = False
+        self.punish = False
+        self.punish_frame = 0
         self.motion = "normal"
 
 
@@ -124,7 +125,6 @@ class Character:
             self.y -= self.D
             self.floor += 1
 
-
     def move_down(self):
         """ This method moves the character down, if it is not in the
         minimum floor. """
@@ -133,23 +133,50 @@ class Character:
             self.floor -= 1
 
     def fall_package(self):
-        self.fall = True
+        self.punish = True
+        self.punish_frame = pyxel.frame_count
 
-    def update(self):
+    def check_package(self, packages):
+
+        self.motion = "normal"
+        for pkg in packages:
+            if (self.side =="right" and pkg.belt == 0 and abs(pkg.x -self.x)
+                    < 30):
+                self.motion = "catch1"
+            elif (self.side == "right" and pkg.belt > 0 and abs(pkg.x- self.x)
+                  <20):
+                self.motion = "leave"
+            if self.side == "left" and abs(pkg.x -self.x) < 20:
+                self.motion = "leave"
+    def update(self, packages):
+        self.check_package(packages)
         if pyxel.btnp(self.up):
             self.move_up()
         if pyxel.btnp(self.down):
             self.move_down()
 
+        if self.punish and pyxel.frame_count - self.punish_frame >= 60:
+            self.punish = False
+
+
     def draw(self):
-        if not self.fall:
+        if not self.punish:
             if self.side == "right":
-                    if self.floor == 0:
-                        pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
-                    else:
-                        pyxel.blt(self.x, self.y, 0, 32, 0, 16, 16)
+                if self.motion == "normal":
+                    pyxel.blt(self.x, self.y, 0, 32, , 16, 16)
+                elif self.motion == "leave":
+                    pyxel.blt(self.x, self.y, 0, 32, 16, 16, 16)
+                elif self.motion == "catch1":
+                    pyxel.blt(self.x, self.y, 0, 32, 32, 16, 16)
             else:
-                pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
+                if self.motion == "normal":
+                    pyxel.blt(self.x, self.y, 0, 16, 0, 16, 16)
+                elif self.motion == "leave":
+                    pyxel.blt(self.x, self.y, 0, 16, 16, 16, 16)
+                elif self.motion == "catch1":
+                    pyxel.blt(self.x, self.y, 0, 16, 32, 16, 16)
+
+
         else:
             if self.side == "right":
                 pyxel.blt(208, 56, 0, 32, 48, 16, 16)
