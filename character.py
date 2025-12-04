@@ -34,6 +34,7 @@ class Character:
         self.punish = False
         self.punish_frame = 0
         self.motion = "normal"
+        self.timer = 0
         #self.pause = False
         #self.pause_x = 0
         #self.pause_y = 0
@@ -141,26 +142,44 @@ class Character:
 
     def check_package(self, packages):
 
+        if pyxel.frame_count < self.timer:
+            return
+
         if self.side == "right":
-            for pkg in packages:
-                if pkg.belt == 0:
-                    self.motion = "catch1"
-                    if pkg.belt == 0 and abs(pkg.x -self.x) < 30:
+            if self.floor == 0:
+                self.motion = "catch1"
+                for pkg in packages:
+                    if pkg.belt == 0 and abs(
+                            pkg.x - self.x) < self.width and abs(
+                            pkg.y - self.y) < self.height:
                         self.motion = "normal"
-                else:
-                    self.motion = "normal"
-                    if pkg.belt > 0 and abs(pkg.x -self.x) < 30:
+                        self.timer = pyxel.frame_count + 30
+            else:
+                self.motion = "normal"
+                for pkg in packages:
+                    if pkg.belt > 0 and abs(
+                            pkg.x - self.x) < self.width and abs(
+                            pkg.y - self.y) < self.height:
                         self.motion = "leave"
+                        self.timer = pyxel.frame_count + 30
         else:
-            self.motion = "normal"
-            for pkg in packages:
+            if self.floor == 5:
+                self.motion = "normal"
+                for pkg in packages:
+                    if pkg.belt == 4 and abs(
+                            pkg.x - self.x) < self.width and abs(
+                            pkg.y - self.y) < self.height:
+                        self.motion = "catch1"
+                        self.timer = pyxel.frame_count + 30
 
-                if pkg.belt == 4 and abs(pkg.x -self.x) < 30:
-                    self.motion = "catch1"
-
-                elif pkg.belt < 4 and abs(pkg.x - self.x) < 20:
-                    self.motion = "leave"
-
+            else:
+                self.motion = "normal"  # estado base
+                for pkg in packages:
+                    if pkg.belt < 4 and abs(
+                            pkg.x - self.x) < self.width and abs(
+                            pkg.y - self.y) < self.height:
+                        self.motion = "leave"
+                        self.timer = pyxel.frame_count + 30
 
     #def save_positions(self):
         #self.pause = True
