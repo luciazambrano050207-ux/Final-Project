@@ -153,7 +153,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "normal"
-                        self.timer = pyxel.frame_count + 30
+                        self.timer = pyxel.frame_count + 20
             else:
                 self.motion = "normal"
                 for pkg in packages:
@@ -179,7 +179,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "leave"
-                        self.timer = pyxel.frame_count + 30
+                        self.timer = pyxel.frame_count + 20
 
     #def save_positions(self):
         #self.pause = True
