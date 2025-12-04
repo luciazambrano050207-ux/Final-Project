@@ -153,7 +153,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "normal"
-                        self.timer = pyxel.frame_count + 20
+                        self.timer = pyxel.frame_count + 7
             else:
                 self.motion = "normal"
                 for pkg in packages:
@@ -161,25 +161,26 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "leave"
-                        self.timer = pyxel.frame_count + 30
+                        self.timer = pyxel.frame_count + 7
         else:
-            if self.floor == 5:
+
+            if self.floor == 4:
+
                 self.motion = "normal"
                 for pkg in packages:
                     if pkg.belt == 4 and abs(
                             pkg.x - self.x) < self.width and abs(
-                            pkg.y - self.y) < self.height:
+                            pkg.y - self.y) < self.height and self.motion == "normal":
                         self.motion = "catch1"
-                        self.timer = pyxel.frame_count + 30
-
+                        self.timer = pyxel.frame_count + 7
             else:
-                self.motion = "normal"  # estado base
+                self.motion = "normal"
                 for pkg in packages:
                     if pkg.belt < 4 and abs(
                             pkg.x - self.x) < self.width and abs(
-                            pkg.y - self.y) < self.height:
+                            pkg.y - self.y) < self.height and self.motion == "normal":
                         self.motion = "leave"
-                        self.timer = pyxel.frame_count + 20
+                        self.timer = pyxel.frame_count + 7
 
     #def save_positions(self):
         #self.pause = True
