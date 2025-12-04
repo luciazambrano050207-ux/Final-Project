@@ -18,7 +18,6 @@ class Boss:
         self.lives = 3
         #self.visible = False
         self.punish = False
-        self.finish_break = False
         self.punish_frame = 0
 
 
@@ -52,7 +51,7 @@ class Boss:
         if self.punish and pyxel.frame_count - self.punish_frame >= 60:
             self.punish = False
 
-    def draw(self):
+    def draw(self, pause, pause_frame):
         if self.lives >= 1:
             pyxel.blt(152, 0, 0, 0, 232, 16, 16)
         if self.lives >= 2:
@@ -66,7 +65,7 @@ class Boss:
             else:
                 pyxel.blt(14, 104, 0, 48, 16, 16, 16)
 
-        if self.finish_break:
+        if pause and pyxel.frame_count - pause_frame >= 270:
             pyxel.blt(224, 56, 0, 48, 48, 16, 16)
             pyxel.blt(12, 104, 0, 48, 16, 16, 16)
 

@@ -117,6 +117,17 @@ class Package:
         if self.x >= 128:
             self.side = "right"
 
+    def delete(self, board):
+        if self.belt == 0:
+            if 186 <= self.x <= 194 or self.x <= 88:
+                board.packages.remove(self)
+        elif self.belt == 1 or self.belt == 3:
+            if self.x >= 154:
+                board.packages.remove(self)
+        elif self.belt == 2 or self.belt == 4:
+            if self.x <= 88:
+                board.packages.remove(self)
+
     def update(self):
         if not self.fall and not self.at_truck:
             if time.time() - self.time > 0.4:

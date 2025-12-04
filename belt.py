@@ -4,13 +4,13 @@ class Belt:
         #(self, direction: str, level:int, speed:float, start_x:int,
         #end_x:int, y_ground: int = 200, y_step: int = -60):
 
+        self.y = y
         self.direction = direction
-        #self.level = level
         self.speed = speed
         #self.start_x= 0
         #self.end_x = 0
-        self.position()
-        self.y = y
+        #self.position()
+        #self.level = level
 
         #self.end_x = end_x
         #self.y_ground = y_ground
@@ -93,13 +93,13 @@ class Belt:
             raise TypeError('y must be a integer')
         self.__y = y
 
-    def position(self):
-        """ This method initializes the start_x and end_x attributes
-        according to the direction of the belt. """
-        if self.direction == 'left':
-            self.start_x = 224
-            self.end_x = 70
-        else:
-            self.start_x = 70
-            self.end_x = 224
+    #def position(self):
+        #""" This method initializes the start_x and end_x attributes
+        #according to the direction of the belt. """
+        #if self.direction == 'left':
+            #self.start_x = 224
+            #self.end_x = 70
+        #else:
+            #self.start_x = 70
+            #self.end_x = 224
 
