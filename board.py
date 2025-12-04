@@ -20,6 +20,7 @@ class Board:
         self.height = height
         self.break_pause = False
         self.break_pause_frame = 0
+        self.game_over = False
 
         self.mario = Character(x=174, y=88, D=32, max_floors=2,
                                up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
@@ -79,10 +80,16 @@ class Board:
         if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
 
+        if self.boss.lives == 0:
+            self.game_over = True
+        if self.game_over:
+            return
+
         self.mario.update(self.packages, self.break_pause)
         self.luigi.update(self.packages, self.break_pause)
         self.truck.update(self.score)
         self.boss.update(self.truck)
+
 
         if self.truck.package == 8 and not self.break_pause:
             self.break_pause = True
@@ -126,24 +133,26 @@ class Board:
         """This is a pyxel method that gets executed in every iteration of the
         game (every frame). Here is all the code to draw the sprites of the
         game. """
-        if self.boss.lives == 0:
-            pyxel.bltm(0, 0, 2, 0, 0, 256, 128)
-        else:
-            # Erasing the previous screen
+        if self.game_over:
             pyxel.cls(0)
-            pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
+            pyxel.bltm(0, 0, 2, 0, 0, 256, 128)
+            return
 
-            # Drawing the characters and packages
-            self.mario.draw(self.break_pause, self.break_pause_frame)
-            self.luigi.draw(self.break_pause, self.break_pause_frame)
-            self.boss.draw(self.break_pause, self.break_pause_frame)
-            self.truck.draw()
-            for pkg in self.packages:
-                pkg.draw()
+        # Erasing the previous screen
+        pyxel.cls(0)
+        pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
 
-            pyxel.bltm(120,0,0,120, 0,16,128)
-            pyxel.bltm(0, 0, 0, 0, 0, 8,72)
+        # Drawing the characters and packages
+        self.mario.draw(self.break_pause, self.break_pause_frame)
+        self.luigi.draw(self.break_pause, self.break_pause_frame)
+        self.boss.draw(self.break_pause, self.break_pause_frame)
+        self.truck.draw()
+        for pkg in self.packages:
+            pkg.draw()
 
-            # Text in screen
-            pyxel.text(240,35, "Easy", 0)
-            pyxel.text(244, 7, str(self.score), 0)
+        pyxel.bltm(120,0,0,120, 0,16,128)
+        pyxel.bltm(0, 0, 0, 0, 0, 8,72)
+
+        # Text in screen
+        pyxel.text(240,35, "Easy", 0)
+        pyxel.text(244, 7, str(self.score), 0)
