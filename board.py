@@ -88,14 +88,9 @@ class Board:
             self.break_pause = True
             self.break_pause_frame = pyxel.frame_count
 
-            #self.mario.save_positions()
-            #self.luigi.save_positions()
-
         if self.break_pause:
             if pyxel.frame_count - self.break_pause_frame >= 300:
                 self.break_pause = False
-                #self.mario.restore_positions()
-                #self.luigi.restore_positions()
 
         if not self.boss.punish and not self.break_pause:
             for package in self.packages:
@@ -138,7 +133,7 @@ class Board:
             # Drawing the characters and packages
             self.mario.draw(self.break_pause, self.break_pause_frame)
             self.luigi.draw(self.break_pause, self.break_pause_frame)
-            self.boss.draw()
+            self.boss.draw(self.break_pause, self.break_pause_frame)
             self.truck.draw()
             for pkg in self.packages:
                 pkg.draw()
@@ -146,6 +141,6 @@ class Board:
             pyxel.bltm(120,0,0,120, 0,16,128)
             pyxel.bltm(0, 0, 0, 0, 0, 8,72)
 
-            # Text in screen without having to do the letters
+            # Text in screen
             pyxel.text(240,35, "Easy", 0)
             pyxel.text(244, 7, str(self.score), 0)
