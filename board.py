@@ -89,11 +89,14 @@ class Board:
             self.break_pause_frame = pyxel.frame_count
 
         if self.break_pause:
+            for pkg in list(self.packages):
+                pkg.delete(self)
+
             if pyxel.frame_count - self.break_pause_frame >= 300:
                 self.break_pause = False
 
         if not self.boss.punish and not self.break_pause:
-            for package in self.packages:
+            for package in list(self.packages):
                 package.update()
                 if package.finish:
                     self.packages.remove(package)
