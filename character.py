@@ -164,13 +164,15 @@ class Character:
                         self.timer = pyxel.frame_count + 7
         else:
 
-            if self.floor == 4:
+            if self.floor == 2:
+                if pyxel.frame_count >= self.timer:
+                    self.motion = "normal"
 
-                self.motion = "normal"
                 for pkg in packages:
+
                     if pkg.belt == 4 and abs(
                             pkg.x - self.x) < self.width and abs(
-                            pkg.y - self.y) < self.height and self.motion == "normal":
+                            pkg.y - self.y) < self.height:
                         self.motion = "catch1"
                         self.timer = pyxel.frame_count + 7
             else:
