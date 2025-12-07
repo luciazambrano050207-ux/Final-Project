@@ -28,7 +28,7 @@ class Truck:
     @package.setter
     def package(self, package: int):
         if not isinstance(package, int):
-            raise TypeError("package must be an int")
+            raise TypeError("package must be an integer")
         elif package < 0:
             raise ValueError("package must be >= 0")
         self.__package = package
@@ -40,7 +40,7 @@ class Truck:
     @deliveries.setter
     def deliveries(self, deliveries: int):
         if not isinstance(deliveries, int):
-            raise TypeError("deliveries must be an int")
+            raise TypeError("deliveries must be an integer")
         elif deliveries < 0:
             raise ValueError("deliveries must be >= 0")
         self.__deliveries = deliveries

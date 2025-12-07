@@ -2,10 +2,9 @@ import time
 import pyxel
 class Package:
     """ This class represents a package. """
+
     def __init__(self, belts):
-        """ This method creates a Package object by receiving all the
-        information needed. Every package will have the same values for the
-        attributes when we create them. """
+        """ This method creates a Package object. """
         self.belts = belts
         self.belt = 0
         self.x = 224
@@ -24,8 +23,7 @@ class Package:
         self.at_truck = False
         self.finish = False
         self.fall_frame = 0
-        self.moves = 0 #contador de cuanto se mueve hasta que aparezca otro
-        # paquete
+        self.moves = 0
 
     @property
     def x(self) -> int:

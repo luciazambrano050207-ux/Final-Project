@@ -1,5 +1,6 @@
 class Collisions:
     """ This class represents the collisions between two objects. """
+
     def __init__(self):
         pass
 

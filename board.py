@@ -23,8 +23,8 @@ class Board:
         self.game_over = False
 
         self.mario = Character(x=174, y=88, D=32, max_floors=2,
-                               up = pyxel.KEY_UP, down = pyxel.KEY_DOWN,
-                               side= "right")
+                               up=pyxel.KEY_UP, down=pyxel.KEY_DOWN,
+                               side="right")
         self.luigi = Character(x=66, y=80, D=32, max_floors=2, up=pyxel.KEY_W,
                                down=pyxel.KEY_S, side="left")
         self.boss = Boss()
