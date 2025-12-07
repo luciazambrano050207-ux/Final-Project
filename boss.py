@@ -3,9 +3,9 @@ class Boss:
     """ This class represents the boss. """
 
     def __init__(self):
-        """ This method creates the Boss object. The boss will appear on
-            screen every time a package falls to punish Mario or Luigi, and
-            after each break, to make them come back to work.
+        """ This method creates a Boss object. The boss will appear on screen
+            every time a package falls to punish Mario or Luigi, and after
+            each break, to make them come back to work.
         """
         self.side = ""
         self.lives = 3

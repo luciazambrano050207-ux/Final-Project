@@ -20,9 +20,6 @@ class Character:
         """
         self.x = x
         self.y = y
-        # #self.img = img
-        # self.u = u
-        # self.v = v
         self.width = 16
         self.height = 16
         self.D = D
@@ -35,9 +32,6 @@ class Character:
         self.punish_frame = 0
         self.motion = "normal"
         self.timer = 0
-        #self.pause = False
-        #self.pause_x = 0
-        #self.pause_y = 0
 
 
     @property
@@ -186,15 +180,6 @@ class Character:
                         self.motion = "leave"
                         self.timer = pyxel.frame_count + 7
 
-    #def save_positions(self):
-        #self.pause = True
-        #self.pause_x = self.x
-        #self.pause_y = self.y
-
-    #def restore_positions(self):
-        #self.pause = False
-        #self.x = self.pause_x
-        #self.y = self.pause_y
 
     def update(self, packages, pause):
         """ This method shows that if the game is not paused, it handles the

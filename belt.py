@@ -2,7 +2,7 @@ class Belt:
     """ This class represents the belt. """
 
     def __init__(self, y, direction, speed):
-        """ This method creates the Belt object.
+        """ This method creates a Belt object.
             :param y: int. The y position of the belt
             :param direction: str. The direction of the belt
             :param speed: int. The speed of the belt
