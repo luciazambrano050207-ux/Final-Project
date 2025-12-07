@@ -7,7 +7,7 @@ class Boss:
             every time a package falls to punish Mario or Luigi, and after
             each break, to make them come back to work.
         """
-        self.side = ""
+        self.__side = ""
         self.__lives = 3
         self.__punish = False
         self.__punish_frame = 0
@@ -16,12 +16,6 @@ class Boss:
     @property
     def side(self) -> str:
         return self.__side
-
-    @side.setter
-    def side(self, side: str):
-        if not isinstance(side, str):
-            raise TypeError("side must be a string")
-        self.__side = side
 
     @property
     def lives(self) -> int:
@@ -39,7 +33,7 @@ class Boss:
     def fall_mario(self):
         """ This method changes the boss's attributes when Mario drops a
         package. """
-        self.side = "right"
+        self.__side = "right"
         self.__lives -= 1
         self.__punish = True
         self.__punish_frame = pyxel.frame_count
@@ -47,7 +41,7 @@ class Boss:
     def fall_luigi(self):
         """ This method changes the boss's attributes when Luigi drops a
         package. """
-        self.side = "left"
+        self.__side = "left"
         self.__lives -= 1
         self.__punish = True
         self.__punish_frame = pyxel.frame_count
@@ -80,7 +74,7 @@ class Boss:
             pyxel.blt(184, 0, 0, 0, 232, 16, 16)
 
         if self.__punish:
-            if self.side == "right":
+            if self.__side == "right":
                 pyxel.blt(224, 56, 0, 48, 48, 16, 16)
             else:
                 pyxel.blt(14, 104, 0, 48, 16, 16, 16)
