@@ -2,8 +2,7 @@ import pyxel
 class Boss:
     """ This class represents the boss. """
     def __init__(self):
-        """ This method creates the Boss object by receiving all the
-            information needed. The boss will appear on screen every time a
+        """ This method creates the Boss object. The boss will appear on screen every time a
             package falls to punish Mario or Luigi, and after each break, to
             make them come back to work.
         """
