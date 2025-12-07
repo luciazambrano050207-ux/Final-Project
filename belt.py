@@ -3,9 +3,9 @@ class Belt:
 
     def __init__(self, y, direction, speed):
         """ This method creates the Belt object.
-        :param y: int. The y position of the belt
-        :param direction: str. The direction of the belt
-        :param speed: int. The speed of the belt
+            :param y: int. The y position of the belt
+            :param direction: str. The direction of the belt
+            :param speed: int. The speed of the belt
         """
         self.y = y
         self.direction = direction
