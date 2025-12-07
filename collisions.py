@@ -52,7 +52,6 @@ class Collisions:
                         pkg.fall_package()
                         mario.fall_package()
                         boss.fall_mario()
-
                 elif pkg.belt == 4 and pkg.x <= 80:
                     if Collisions.collide(pkg, luigi):
                         score.pkg_delivered()
