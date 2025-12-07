@@ -137,11 +137,16 @@ class Character:
             self.floor -= 1
 
     def fall_package(self):
+        """ This method detects if the package is falling. If it falls,
+        it punishes the object"""
         self.punish = True
         self.punish_frame = pyxel.frame_count
 
     def check_package(self, packages):
-
+        """ This method checks if the Mario or Luigi takes the package. If
+        the collision is detected, it changes the image/ sprite of the
+        object depending on the floor Mario or Luigi are or the belt the
+        package is"""
         if pyxel.frame_count < self.timer:
             return
 
@@ -165,22 +170,22 @@ class Character:
         else:
 
             if self.floor == 2:
-                if pyxel.frame_count >= self.timer:
-                    self.motion = "normal"
+                self.motion = "normal"
 
                 for pkg in packages:
-
                     if pkg.belt == 4 and abs(
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
+
                         self.motion = "catch1"
                         self.timer = pyxel.frame_count + 7
+
             else:
                 self.motion = "normal"
                 for pkg in packages:
                     if pkg.belt < 4 and abs(
                             pkg.x - self.x) < self.width and abs(
-                            pkg.y - self.y) < self.height and self.motion == "normal":
+                            pkg.y - self.y) < self.height:
                         self.motion = "leave"
                         self.timer = pyxel.frame_count + 7
 
@@ -195,6 +200,8 @@ class Character:
         #self.y = self.pause_y
 
     def update(self, packages, pause):
+        """ This method shows that if the game is not paused, it handles the
+        movement of the objects. """
         if not pause:
             self.check_package(packages)
             if pyxel.btnp(self.up):
@@ -207,6 +214,8 @@ class Character:
 
 
     def draw(self, pause, pause_frame):
+        """ This method changes the image of the objects depending on the
+        situation. """
         if pause and pyxel.frame_count - pause_frame < 270:
             if self.side == "right":
                 pyxel.blt(200, 56, 0, 64, 16, 16, 16)

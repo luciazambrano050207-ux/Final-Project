@@ -29,29 +29,37 @@ class Boss:
             #self.visible = False
 
     def fall_mario(self):
+        """ This method represents when Mario does not catch the package."""
         self.side = "right"
         self.lives -= 1
         self.punish = True
         self.punish_frame = pyxel.frame_count
 
     def fall_luigi(self):
+        """ This method represents when Luigi does not catch the package."""
         self.side = "left"
         self.lives -= 1
         self.punish = True
         self.punish_frame = pyxel.frame_count
 
     def add_life(self, truck):
+        """ This method adds a life when the truck has been completed 3
+        times. """
         if truck.deliveries == 3:
             if self.lives < 3:
                 self.lives += 1
             truck.deliveries = 0
 
     def update(self, truck):
+        """ This method adds a life if 3 deliveries have been completed. If
+        a package falls, it activates Boss for 60 frames. """
         self.add_life(truck)
         if self.punish and pyxel.frame_count - self.punish_frame >= 60:
             self.punish = False
 
     def draw(self, pause, pause_frame):
+        """ This method shows the lives that remain in the game and it shows
+        the sprite of the boss in case a package falls. """
         if self.lives >= 1:
             pyxel.blt(152, 0, 0, 0, 232, 16, 16)
         if self.lives >= 2:

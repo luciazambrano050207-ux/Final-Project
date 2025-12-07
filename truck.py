@@ -37,12 +37,18 @@ class Truck:
             #self.__visible = visibles
 
     def add_package(self):
+        """ This method represents that a package have been added to the
+        truck"""
         self.package += 1
 
     def move(self):
+        """ This method moves the truck when 8 packages are in the truck. """
         self.x -= 0.4
 
     def update(self, score):
+        """ This method checks the delivery cycle. It observed if the 8
+        packages have been added, the movement of the truck and the
+        returning of the truck after 150 frames. """
         if not self.waiting:
             if self.package == 8 and self.x == 8:
                 score.completed_truck()
@@ -60,6 +66,8 @@ class Truck:
                 self.waiting = False
 
     def draw(self):
+        """ This method changes the image of the truck according to the
+        number of packages. """
         if not self.waiting:
             if self.package == 0:
                 pyxel.blt(self.x, 40, 0, 32, 96, 48, 32)

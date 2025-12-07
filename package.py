@@ -89,6 +89,7 @@ class Package:
             self.x += self.D
 
     def put_belt(self, belt, new_x, new_y):
+        """ This method represents that the package has been transfer to the next belt"""
         self.belt = belt
         self.x = new_x
         self.y = new_y
@@ -118,6 +119,7 @@ class Package:
             self.side = "right"
 
     def delete(self, board):
+        """ This method deletes the package from the list"""
         if self.belt == 0:
             if 186 <= self.x <= 194 or self.x <= 88:
                 board.packages.remove(self)
@@ -129,6 +131,8 @@ class Package:
                 board.packages.remove(self)
 
     def update(self):
+        """ It controls the movement of the package, the speed of it and
+        what happens if the package falls. """
         if not self.fall and not self.at_truck:
             if time.time() - self.time > 0.4:
                 self.move()
@@ -139,6 +143,8 @@ class Package:
                 self.finish = True
 
     def draw(self):
+        """ This method shows the changes of the image of the package at
+        certain points of the belts. """
         self.change_sides()
         if not self.fall and not self.at_truck:
             if self.side == "right":
