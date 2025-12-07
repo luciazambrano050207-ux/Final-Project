@@ -7,8 +7,8 @@ class Truck:
         self.x = 8
         self.package = 0
         self.deliveries = 0
-        self.waiting = False
-        self.wait_frame = 0
+        self.__waiting = False
+        self.__wait_frame = 0
 
 
     @property
@@ -49,21 +49,9 @@ class Truck:
     def waiting(self) -> bool:
         return self.__waiting
 
-    @waiting.setter
-    def waiting(self, waiting: bool):
-        if not isinstance(waiting, bool):
-            raise TypeError("waiting must be a boolean")
-        self.__waiting = waiting
-
     @property
     def wait_frame(self) -> int:
         return self.__wait_frame
-
-    @wait_frame.setter
-    def wait_frame(self, wait_frame: int):
-        if not isinstance(wait_frame, int):
-            raise TypeError("wait_frame must be an integer")
-        self.__wait_frame = wait_frame
 
 
     def add_package(self):
@@ -78,7 +66,7 @@ class Truck:
         """ This method checks the delivery cycle. It observes if the 8
         packages have been added, the movement of the truck, and the
         returning of the truck after 150 frames. """
-        if not self.waiting:
+        if not self.__waiting:
             if self.package == 8 and self.x == 8:
                 score.completed_truck()
 
@@ -87,17 +75,17 @@ class Truck:
             elif self.package == 8 and self.x <= -47:
                 self.deliveries += 1
                 self.package = 0
-                self.waiting = True
-                self.wait_frame = pyxel.frame_count
+                self.__waiting = True
+                self.__wait_frame = pyxel.frame_count
         else:
             if pyxel.frame_count - self.wait_frame >= 150:
                 self.x = 8
-                self.waiting = False
+                self.__waiting = False
 
     def draw(self):
         """ This method changes the image of the truck according to the
         number of packages. """
-        if not self.waiting:
+        if not self.__waiting:
             if self.package == 0:
                 pyxel.blt(self.x, 40, 0, 32, 96, 48, 32)
             elif self.package == 1:
