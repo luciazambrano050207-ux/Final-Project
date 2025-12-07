@@ -8,7 +8,18 @@ class Truck:
         self.package = 0
         self.deliveries = 0
         self.waiting = False
-        self.wait_start = 0
+        self.wait_frame = 0
+
+
+    @property
+    def x(self) -> int:
+        return self.__x
+
+    @x.setter
+    def x(self, x: int):
+        if not isinstance(x, int):
+            raise TypeError("x must be an integer")
+        self.__x = x
 
     @property
     def package(self) -> int:
@@ -17,32 +28,55 @@ class Truck:
     @package.setter
     def package(self, package: int):
         if not isinstance(package, int):
-            raise TypeError("The package must be an int")
-        else:
-            self.__package = package
+            raise TypeError("package must be an int")
+        elif package < 0:
+            raise ValueError("package must be >= 0")
+        self.__package = package
 
-    #@property
-    #def visible(self) -> bool:
-        #return self.__visible
+    @property
+    def deliveries(self) -> int:
+        return self.__deliveries
 
-    #@visible.setter
-    #def visible(self, visible: bool):
-        #if not isinstance(visible, bool):
-            #raise TypeError("visible must be a boolean")
-        #else:
-            #self.__visible = visibles
+    @deliveries.setter
+    def deliveries(self, deliveries: int):
+        if not isinstance(deliveries, int):
+            raise TypeError("deliveries must be an int")
+        elif deliveries < 0:
+            raise ValueError("deliveries must be >= 0")
+        self.__deliveries = deliveries
+
+    @property
+    def waiting(self) -> bool:
+        return self.__waiting
+
+    @waiting.setter
+    def waiting(self, waiting: bool):
+        if not isinstance(waiting, bool):
+            raise TypeError("waiting must be a boolean")
+        self.__waiting = waiting
+
+    @property
+    def wait_frame(self) -> int:
+        return self.__wait_frame
+
+    @wait_frame.setter
+    def wait_frame(self, wait_frame: int):
+        if not isinstance(wait_frame, int):
+            raise TypeError("wait_frame must be an integer")
+        self.__wait_frame = wait_frame
+
 
     def add_package(self):
         """ This method adds a package to the truck. """
         self.package += 1
 
     def move(self):
-        """ This method moves the truck when it has 8 packages. """
+        """ This method moves the truck to the left. """
         self.x -= 0.4
 
     def update(self, score):
         """ This method checks the delivery cycle. It observes if the 8
-        packages have been added, the movement of the truck and the
+        packages have been added, the movement of the truck, and the
         returning of the truck after 150 frames. """
         if not self.waiting:
             if self.package == 8 and self.x == 8:
@@ -54,9 +88,9 @@ class Truck:
                 self.deliveries += 1
                 self.package = 0
                 self.waiting = True
-                self.wait_start = pyxel.frame_count
+                self.wait_frame = pyxel.frame_count
         else:
-            if pyxel.frame_count - self.wait_start >= 150:
+            if pyxel.frame_count - self.wait_frame >= 150:
                 self.x = 8
                 self.waiting = False
 
