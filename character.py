@@ -2,19 +2,20 @@ import pyxel
 class Character:
     """ This class represents the player of the game: Mario and Luigi """
 
-    def __init__(self, x, y, D, max_floors, up, down, side):
+    def __init__(self, x, y, side, D, max_floors, up, down):
         """ This method creates a Character object
             :param x: int. The x position of the character
             :param y: int. The y position of the character
+            :param side: str. The side of the character
             :param D: int. The distance that the character can move
             :param max_floors: int. The maximum number of floors that the
             character can move
             :param up: the key to move the character up
             :param down: the key to move the character down
-            :param side: str. The side of the character
         """
         self.x = x
         self.y = y
+        self.side = side
         self.width = 16
         self.height = 16
         self.D = D
@@ -22,7 +23,6 @@ class Character:
         self.max_floors = max_floors
         self.up = up
         self.down = down
-        self.side = side
         self.punish = False
         self.punish_frame = 0
         self.motion = "normal"
@@ -53,7 +53,6 @@ class Character:
             raise ValueError("y must be >= 0")
         self.__y = y
 
-
     @property
     def side(self) -> str:
         return self.__side
@@ -62,7 +61,7 @@ class Character:
     def side(self, side: str):
         if not isinstance(side, str):
             raise TypeError("side must be a string")
-        elif not side.lower() == "left" and not side.lower() == "right":
+        elif side != "left" and side != "right":
             raise ValueError("side must be left or right")
         self.__side = side
 

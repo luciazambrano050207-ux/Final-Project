@@ -38,38 +38,9 @@ class Board:
                       Belt(40, "right", 2),
                       Belt(24, "left", 2)]
 
-
         pyxel.init(self.width, self.height, title="Mario Bros Proyect")
-
         pyxel.load("my_resource.pyxres")
-
         pyxel.run(self.update, self.draw)
-
-    @property
-    def width(self) -> int:
-        return self.__width
-
-    @property
-    def height(self) -> int:
-        return self.__height
-
-    @width.setter
-    def width(self, width: int):
-        if not isinstance(width, int):
-            raise TypeError("The width must be an integer " + str(type(width)) + "is provided")
-        elif width < 1 or width > 256:
-            raise ValueError("The width must be in the range 1 to 256")
-        else:
-            self.__width = width
-
-    @height.setter
-    def height(self, height: int):
-        if not isinstance(height, int):
-            raise TypeError("The height must be an integer " + str(type(height)) + "is provided")
-        elif height < 1 or height > 256:
-            raise ValueError("The height must be in the range 1 to 256")
-        else:
-            self.__height = height
 
 
     def update(self):
@@ -90,7 +61,6 @@ class Board:
         self.truck.update(self.score)
         self.boss.update(self.truck)
 
-
         if self.truck.package == 8 and not self.break_pause:
             self.break_pause = True
             self.break_pause_frame = pyxel.frame_count
@@ -98,7 +68,6 @@ class Board:
         if self.break_pause:
             for pkg in list(self.packages):
                 pkg.delete(self)
-
             if pyxel.frame_count - self.break_pause_frame >= 300:
                 self.break_pause = False
 
@@ -110,20 +79,19 @@ class Board:
 
             self.mario.check_package(self.packages)
             self.luigi.check_package(self.packages)
-
             self.collisions.collision(self.packages, self.mario, self.luigi,
                                   self.boss, self.truck, self.score)
 
             if len(self.packages) == 0: #If the list is empty, add one package
                 self.packages.append(Package(self.belts))
             else:
-                if len(self.packages) % 2 == 0: #If the number of package is
-                    # even, if number of belt is the last one and it's in the
-                    # middle of this belt, another package moves.
+                if len(self.packages) % 2 == 0: #If the number of packages is
+                    # even, if package is in the middle of the last belt,
+                    # another package moves
                     if (self.packages[len(self.packages) - 2].belt == 4 and
                         self.packages[len(self.packages) - 2].x <= 120):
                             self.packages.append(Package(self.belts))
-                else: #If the number of package is odd, after, 8 moves of the
+                else: #If the number of packages is odd, after 8 moves of the
                     # first package, another package moves
                     if self.packages[len(self.packages) - 1].moves >= 8:
                         self.packages.append(Package(self.belts))
@@ -142,7 +110,6 @@ class Board:
         pyxel.cls(0)
         pyxel.bltm(0, 0, 0, 0, 0, 256, 128)
 
-        # Drawing the characters and packages
         self.mario.draw(self.break_pause, self.break_pause_frame)
         self.luigi.draw(self.break_pause, self.break_pause_frame)
         self.boss.draw(self.break_pause, self.break_pause_frame)

@@ -5,7 +5,7 @@ class Truck:
     def __init__(self):
         """ This method creates a Truck object. """
         self.x = 8
-        self.package = 0
+        self.__package = 0
         self.deliveries = 0
         self.__waiting = False
         self.__wait_frame = 0
@@ -24,14 +24,6 @@ class Truck:
     @property
     def package(self) -> int:
         return self.__package
-
-    @package.setter
-    def package(self, package: int):
-        if not isinstance(package, int):
-            raise TypeError("package must be an integer")
-        elif package < 0:
-            raise ValueError("package must be >= 0")
-        self.__package = package
 
     @property
     def deliveries(self) -> int:
@@ -56,7 +48,7 @@ class Truck:
 
     def add_package(self):
         """ This method adds a package to the truck. """
-        self.package += 1
+        self.__package += 1
 
     def move(self):
         """ This method moves the truck to the left. """
@@ -67,18 +59,18 @@ class Truck:
         packages have been added, the movement of the truck, and the
         returning of the truck after 150 frames. """
         if not self.__waiting:
-            if self.package == 8 and self.x == 8:
+            if self.__package == 8 and self.x == 8:
                 score.completed_truck()
 
-            if self.package == 8 and self.x > -47:
+            if self.__package == 8 and self.x > -47:
                 self.move()
-            elif self.package == 8 and self.x <= -47:
+            elif self.__package == 8 and self.x <= -47:
                 self.deliveries += 1
-                self.package = 0
+                self.__package = 0
                 self.__waiting = True
                 self.__wait_frame = pyxel.frame_count
         else:
-            if pyxel.frame_count - self.wait_frame >= 150:
+            if pyxel.frame_count - self.__wait_frame >= 150:
                 self.x = 8
                 self.__waiting = False
 
@@ -86,21 +78,21 @@ class Truck:
         """ This method changes the image of the truck according to the
         number of packages. """
         if not self.__waiting:
-            if self.package == 0:
+            if self.__package == 0:
                 pyxel.blt(self.x, 40, 0, 32, 96, 48, 32)
-            elif self.package == 1:
+            elif self.__package == 1:
                 pyxel.blt(self.x, 24, 0, 88, 40, 48, 48)
-            elif self.package == 2:
+            elif self.__package == 2:
                 pyxel.blt(self.x, 24, 0, 88, 96, 48, 48)
-            elif self.package == 3:
+            elif self.__package == 3:
                 pyxel.blt(self.x, 24, 0, 88, 152, 48, 48)
-            elif self.package == 4:
+            elif self.__package == 4:
                 pyxel.blt(self.x, 24, 0, 88, 208, 48, 48)
-            elif self.package == 5:
+            elif self.__package == 5:
                 pyxel.blt(self.x, 24, 0, 144, 40, 48, 48)
-            elif self.package == 6:
+            elif self.__package == 6:
                 pyxel.blt(self.x, 24, 0, 144, 96, 48, 48)
-            elif self.package == 7:
+            elif self.__package == 7:
                 pyxel.blt(self.x, 24, 0, 144, 152, 48, 48)
-            elif self.package == 8:
+            elif self.__package == 8:
                 pyxel.blt(self.x, 24, 0, 144, 208, 48, 48)
