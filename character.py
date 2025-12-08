@@ -102,7 +102,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "normal"
-                        self.timer = pyxel.frame_count + 7
+                        self.timer = pyxel.frame_count + 6
             else:
                 self.motion = "normal"
                 for pkg in packages:
@@ -110,7 +110,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "leave"
-                        self.timer = pyxel.frame_count + 7
+                        self.timer = pyxel.frame_count + 6
         else:
             if self.floor == 2:
                 self.motion = "normal"
@@ -119,7 +119,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "normal"
-                        self.timer = pyxel.frame_count + 7
+                        self.timer = pyxel.frame_count + 6
             else:
                 self.motion = "normal"
                 for pkg in packages:
@@ -127,7 +127,7 @@ class Character:
                             pkg.x - self.x) < self.width and abs(
                             pkg.y - self.y) < self.height:
                         self.motion = "leave"
-                        self.timer = pyxel.frame_count + 7
+                        self.timer = pyxel.frame_count + 6
 
     def update(self, packages, pause):
         """ This method handles the movement of the objects, if the game is

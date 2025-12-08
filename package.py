@@ -119,7 +119,7 @@ class Package:
         """ This method controls the movement of the package, the speed of
         it, and what happens if the package falls. """
         if not self.fall and not self.at_truck:
-            if time.time() - self.time > 0.4:
+            if time.time() - self.time > 0.7:
                 self.move()
                 self.time = time.time()
                 self.moves += 1

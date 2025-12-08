@@ -17,9 +17,10 @@ class Truck:
 
     @x.setter
     def x(self, x: int):
-        if not isinstance(x, int):
-            raise TypeError("x must be an integer")
-        self.__x = x
+        if not isinstance(x, (int, float)):
+            raise TypeError("x must be an integer or float")
+        else:
+            self.__x = x
 
     @property
     def package(self) -> int:
