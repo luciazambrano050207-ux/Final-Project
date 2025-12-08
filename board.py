@@ -38,7 +38,7 @@ class Board:
                       Belt(40, "right", 2),
                       Belt(24, "left", 2)]
 
-        pyxel.init(self.width, self.height, title="Mario Bros Proyect")
+        pyxel.init(self.width, self.height, title="Mario Bros Project")
         pyxel.load("assets/my_resource.pyxres")
         pyxel.run(self.update, self.draw)
 
