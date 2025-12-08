@@ -72,7 +72,7 @@
   ('python3.dll',
    'C:\\Users\\marta\\AppData\\Local\\Programs\\Python\\Python313\\python3.dll',
    'BINARY'),
-  ('my_resource\\my_resource.pyxres',
+  ('assets\\my_resource.pyxres',
    'C:\\Users\\marta\\PycharmProjects\\Final-Project\\assets\\my_resource.pyxres',
    'DATA'),
   ('base_library.zip',
